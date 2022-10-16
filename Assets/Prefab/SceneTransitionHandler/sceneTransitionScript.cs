@@ -10,6 +10,8 @@ public class sceneTransitionScript : MonoBehaviour
     public bool PlayFadeOutOnSceneLoad;
     public bool PlayFadeInOnChangeScene;
     public int TransitionToScene;
+    bool isTransitioning = false;
+
 
     // Start is called before the first frame update
     void Start()
@@ -22,7 +24,11 @@ public class sceneTransitionScript : MonoBehaviour
 
     public void DoTransition()
     {
-        StartCoroutine(DoTransitionCoroutine());
+        if (!isTransitioning)
+        {
+            StartCoroutine(DoTransitionCoroutine());
+            isTransitioning = true;
+        }
     }
 
     IEnumerator DoTransitionCoroutine()

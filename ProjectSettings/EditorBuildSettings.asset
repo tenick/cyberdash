@@ -11,4 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainMenu/MainMenu.unity
     guid: 94a9411d47f1ceb4eb565c063e7d3cd8
+  - enabled: 1
+    path: Assets/Scenes/NewGame/NewGameComics.unity
+    guid: 1b40526fb3e57644b9fd0d2b5129bf77
+  - enabled: 1
+    path: Assets/Scenes/NewGame/NewGameDialogue.unity
+    guid: daacdf135c5a96642a0278bc6f030d2f
   m_configObjects: {}

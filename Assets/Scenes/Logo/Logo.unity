@@ -587,6 +587,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SceneTransitionHandler
       objectReference: {fileID: 0}
+    - target: {fileID: 1272434671726105858, guid: adf59bbe58f469d41b904956c8500f91, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 519420031}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: adf59bbe58f469d41b904956c8500f91, type: 3}
 --- !u!114 &4139906705110880160 stripped
