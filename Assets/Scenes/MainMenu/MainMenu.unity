@@ -1070,6 +1070,10 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 1272434671726105858, guid: adf59bbe58f469d41b904956c8500f91, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1523017525
+      objectReference: {fileID: 0}
     - target: {fileID: 3461769825626813391, guid: adf59bbe58f469d41b904956c8500f91, type: 3}
       propertyPath: TransitionToScene
       value: 2
@@ -1082,7 +1086,24 @@ PrefabInstance:
       propertyPath: PlayFadeInOnChangeScene
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 3956603078570998909, guid: adf59bbe58f469d41b904956c8500f91, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3956603078570998909, guid: adf59bbe58f469d41b904956c8500f91, type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3956603078570998909, guid: adf59bbe58f469d41b904956c8500f91, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1280
+      objectReference: {fileID: 0}
+    - target: {fileID: 3956603078570998909, guid: adf59bbe58f469d41b904956c8500f91, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 720
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 4922522033982458007, guid: adf59bbe58f469d41b904956c8500f91, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: adf59bbe58f469d41b904956c8500f91, type: 3}
 --- !u!1 &1069185604
 GameObject:
@@ -1340,7 +1361,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
-  m_SortingLayerID: 0
+  m_SortingLayerID: -1523017525
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!224 &1370260239

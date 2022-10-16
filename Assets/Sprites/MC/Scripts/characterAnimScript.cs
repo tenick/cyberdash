@@ -19,6 +19,8 @@ public class characterAnimScript : MonoBehaviour
     float horizontal;
     float vertical;
 
+    public bool canControl = true;
+
     void Start()
     {
         timeElapsed = 0;
@@ -27,6 +29,9 @@ public class characterAnimScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!canControl)
+            return;
+        
         horizontal = Input.GetAxisRaw("Horizontal");
         vertical = Input.GetAxisRaw("Vertical");
     }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -16,7 +17,8 @@ public class sceneTransitionScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        animator = gameObject.transform.GetChild(0).transform.GetChild(0).GetComponent<Animator>();
+        GameObject fadeImgObj = gameObject.transform.GetChild(0).transform.GetChild(0).gameObject;
+        animator = fadeImgObj.GetComponent<Animator>();
 
         if (PlayFadeOutOnSceneLoad)
             animator.SetTrigger("startFadeOut");

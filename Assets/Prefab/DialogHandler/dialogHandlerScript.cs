@@ -17,12 +17,12 @@ public class dialogHandlerScript : MonoBehaviour
 
     // states
     bool isShowing = false;
+    bool isFinished = false;
     int currentDialogIndex = 0;
 
     
     private void Start()
     {
-        Restart();
     }
 
 
@@ -31,6 +31,8 @@ public class dialogHandlerScript : MonoBehaviour
         // show dialog handler
         gameObject.SetActive(true);
         isShowing = true;
+        isFinished = false;
+
 
         // get sprites
         sprites = new List<Image>();
@@ -69,6 +71,14 @@ public class dialogHandlerScript : MonoBehaviour
 
     void Next()
     {
+        if (currentDialogIndex >= dialog.speakers.Count)
+        {
+            isShowing = false;
+            isFinished = true;
+            gameObject.SetActive(false);
+            return;
+        }
+
         int currentSpeaker = dialog.speakers[currentDialogIndex];
         string currentDialog = dialog.dialogs[currentDialogIndex];
         List<int> currentPresentSpeakers = dialog.presentSpeakers[currentDialogIndex].Split(',').Select(x => Convert.ToInt32(x)).ToList();
@@ -105,13 +115,10 @@ public class dialogHandlerScript : MonoBehaviour
 
 
         currentDialogIndex++;
-
-        if (currentDialogIndex >= dialog.speakers.Count)
-        {
-            isShowing = false;
-            gameObject.SetActive(false);
-        }
     }
 
-    
+    public bool IsFinished()
+    {
+        return isFinished;
+    }
 }
