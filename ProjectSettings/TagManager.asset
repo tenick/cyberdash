@@ -11,7 +11,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Gameplay
   - 
   - 
   - 
@@ -40,4 +40,19 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: BG
+    uniqueID: 366018551
+    locked: 0
+  - name: BGOver
+    uniqueID: 3546525855
+    locked: 0
+  - name: Player
+    uniqueID: 2761149381
+    locked: 0
+  - name: FG
+    uniqueID: 2369928971
+    locked: 0
+  - name: UI
+    uniqueID: 2771949771
     locked: 0
