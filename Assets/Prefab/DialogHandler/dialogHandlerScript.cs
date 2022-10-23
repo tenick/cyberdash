@@ -9,6 +9,8 @@ using UnityEngine.UI;
 
 public class dialogHandlerScript : MonoBehaviour
 {
+    public event EventHandler DialogFinish;
+
     // not null, will be set everytime Restart() is called
     List<Image> sprites;
     TextMeshProUGUI nameTxt;
@@ -63,7 +65,7 @@ public class dialogHandlerScript : MonoBehaviour
 
     void Update()
     {
-        if (isShowing && Input.GetMouseButtonDown(0)) // left clicked while dialog is showing
+        if (isShowing && (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))) // left clicked while dialog is showing
         {
             Next();
         }
@@ -76,6 +78,7 @@ public class dialogHandlerScript : MonoBehaviour
             isShowing = false;
             isFinished = true;
             gameObject.SetActive(false);
+            DialogFinish?.Invoke(this, EventArgs.Empty);
             return;
         }
 
