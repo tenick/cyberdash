@@ -16,11 +16,15 @@ public class OSILayerScript : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     bool isDragging = false;
     Vector3 lastPosition;
 
+    private void Awake()
+    {
+        OSILayerRect = GetComponent<RectTransform>();
+    }
+
     void Start()
     {
         // get pc script
         PCScript = transform.parent.parent.parent.gameObject.GetComponent<PCScript>();
-        OSILayerRect = GetComponent<RectTransform>();
     }
 
     void Update()
