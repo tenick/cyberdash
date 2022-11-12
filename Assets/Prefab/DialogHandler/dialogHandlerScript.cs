@@ -84,7 +84,7 @@ public class dialogHandlerScript : MonoBehaviour
 
         int currentSpeaker = dialog.speakers[currentDialogIndex];
         string currentDialog = dialog.dialogs[currentDialogIndex];
-        List<int> currentPresentSpeakers = dialog.presentSpeakers[currentDialogIndex].Split(',').Select(x => Convert.ToInt32(x)).ToList();
+        List<int> currentPresentSpeakers = dialog.presentSpeakers[currentDialogIndex] != "" ? dialog.presentSpeakers[currentDialogIndex].Split(',').Select(x => Convert.ToInt32(x)).ToList() : new List<int>();
 
         // handle speakers
         for (int i = 0; i < sprites.Count; i++)
