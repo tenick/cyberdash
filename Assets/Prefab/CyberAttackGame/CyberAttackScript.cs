@@ -22,6 +22,8 @@ public class CyberAttackScript : MonoBehaviour
     public int currentHearts = 3;
 
     public GameObject DNSHijack;
+    public GameObject MITMA;
+    public GameObject DDOS;
     public Transform ParentObject;
 
     public ToolState currToolState;
@@ -29,20 +31,15 @@ public class CyberAttackScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        lastDNSHijack = Time.time + DNSHijackScript.RandomCD;
+        lastDNSHijack = Time.time + DNSHijackScript.RandomCD / 2;
+        lastMITMA = Time.time + MITMAScript.RandomCD / 2;
+        lastDDOS = Time.time + DDOSScript.RandomCD / 2;
         currToolState = ToolState.Default;
     }
 
-    public void RestartDefault()
+    public void CloseBtn()
     {
-        
-    }
-    public void RestartWithParams()
-    {
-
-    }
-    void RestartGeneral()
-    {
+        gameObject.SetActive(false);
     }
 
     float lastDNSHijack;
@@ -53,10 +50,23 @@ public class CyberAttackScript : MonoBehaviour
     {
         if (Time.time > lastDNSHijack)
         {
-            
             GameObject newDNSHijack = Instantiate(DNSHijack, ParentObject);
             newDNSHijack.SetActive(true);
             lastDNSHijack = Time.time + DNSHijackScript.RandomCD;
+        }
+
+        if (Time.time > lastMITMA)
+        {
+            GameObject newMITMA = Instantiate(MITMA, ParentObject);
+            newMITMA.SetActive(true);
+            lastMITMA = Time.time + MITMAScript.RandomCD;
+        }
+
+        if (Time.time > lastDDOS)
+        {
+            GameObject newDDOS = Instantiate(DDOS, ParentObject);
+            newDDOS.SetActive(true);
+            lastDDOS = Time.time + DDOSScript.RandomCD;
         }
     }
 
@@ -71,19 +81,19 @@ public class CyberAttackScript : MonoBehaviour
 
     public void OnClick_MagnifyingGlassTool()
     {
-        Cursor.SetCursor(magnifyingGlassCursor, new Vector2(), CursorMode.Auto);
+        Cursor.SetCursor(magnifyingGlassCursor, Vector2.zero, CursorMode.Auto);
         currToolState = ToolState.MagnifyingGlass;
     }
 
     public void OnClick_PadlockTool()
     {
-        Cursor.SetCursor(padlockCursor, new Vector2(), CursorMode.Auto);
+        Cursor.SetCursor(padlockCursor, Vector2.zero, CursorMode.Auto);
         currToolState = ToolState.Padlock;
     }
 
     public void OnClick_KeyboardTool()
     {
-        Cursor.SetCursor(null, new Vector2(), CursorMode.Auto);
+        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
         currToolState = ToolState.Default;
     }
 }

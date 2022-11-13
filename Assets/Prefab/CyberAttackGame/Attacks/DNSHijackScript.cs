@@ -9,8 +9,8 @@ using System.Linq;
 public class DNSHijackScript : MonoBehaviour
 {
     System.Guid g = System.Guid.NewGuid();
-    public static int MinCooldown = 5;
-    public static float CDAddVariance = .5f;
+    public static int MinCooldown = 35;
+    public static float CDAddVariance = .33f; // [0,1] : random percentage of MinCooldown to be added
     static System.Random rand = new System.Random();
     public static float RandomCD
     {
@@ -33,7 +33,7 @@ public class DNSHijackScript : MonoBehaviour
 
     public Vector2 ServerPosition;
 
-    public int TimeToReachServerInSecs = 8;
+    public int TimeToReachServerInSecs = 60;
 
     CyberAttackScript cyberAttackScript;
     float startTime;
@@ -46,6 +46,7 @@ public class DNSHijackScript : MonoBehaviour
     // win conditions
     bool correctedDomainName = false;
     string lastEnteredText = "";
+    bool entered = false;
 
     private void Start()
     {
@@ -61,7 +62,7 @@ public class DNSHijackScript : MonoBehaviour
 
         // events
         GetComponent<Button>().onClick.AddListener(OnClick_DNSHijack);
-        InputField.onEndEdit.AddListener(delegate { OnEndEdit_DNSHijack(); });
+        InputField.onSubmit.AddListener(delegate { OnSubmit_DNSHijack(); });
 
     }
     public void OnClick_DNSHijack()
@@ -71,13 +72,16 @@ public class DNSHijackScript : MonoBehaviour
             DomainNameText.text = wrongToCorrect[DomainNameText.text];
             correctedDomainName = true;
         }
-
     }
 
-    public void OnEndEdit_DNSHijack()
+    public void OnSubmit_DNSHijack()
     {
-        lastEnteredText = InputField.text;
-        Destroy(InputField);
+        if (!entered)
+        {
+            lastEnteredText = InputField.text;
+            Destroy(InputField);
+            entered = true;
+        }
     }
 
     void Update()
@@ -86,13 +90,12 @@ public class DNSHijackScript : MonoBehaviour
         {
             if (Time.time > endTime)
             {
+                cyberAttackScript.ReceiveMessage(!correctedDomainName || !entered || DomainNameText.text.Trim() != lastEnteredText.Trim());
+                started = false;
                 Destroy(gameObject);
-                cyberAttackScript.ReceiveMessage(!correctedDomainName || DomainNameText.text != lastEnteredText);
             }
             else
                 dnsHijackRectTransform.anchoredPosition = new Vector2(Mathf.Lerp(ServerPosition.x, dnsHijackInitPosition.x, (endTime - Time.time) / TimeToReachServerInSecs), dnsHijackInitPosition.y);
-            
         }
-
     }
 }

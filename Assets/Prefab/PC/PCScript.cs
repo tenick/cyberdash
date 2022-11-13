@@ -63,7 +63,10 @@ public class PCScript : MonoBehaviour
     {
 
     }
-
+    public void CloseBtn()
+    {
+        gameObject.SetActive(false);
+    }
     public void Check()
     {
         bool result = true;

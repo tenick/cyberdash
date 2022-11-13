@@ -95,7 +95,7 @@ MonoBehaviour:
   DomainNameText: {fileID: 2940647611837399066}
   InputField: {fileID: 2940647611921731047}
   ServerPosition: {x: 0, y: 0}
-  TimeToReachServerInSecs: 5
+  TimeToReachServerInSecs: 60
 --- !u!114 &4374588220790117475
 MonoBehaviour:
   m_ObjectHideFlags: 0

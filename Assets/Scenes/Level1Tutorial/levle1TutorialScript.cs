@@ -25,6 +25,7 @@ public class levle1TutorialScript : MonoBehaviour
     public GameObject AmeliaDialog5;
 
     public GameObject OSIGameObj;
+    public GameObject CyberAttackGameObj;
 
     public List<Action> SceneFlow;
 
@@ -109,6 +110,7 @@ public class levle1TutorialScript : MonoBehaviour
         {
             CharacterScript.canControl = true;
             JumpingExclamation.transform.position = new Vector2(4.22f, 3.58f);
+            GameObject newJE = Instantiate(JumpingExclamation, new Vector2(-5.74f, 1.36f), Quaternion.identity);
         });
         SceneFlow.Add(() => // 11 : talk to PC 2
         {
@@ -152,6 +154,11 @@ public class levle1TutorialScript : MonoBehaviour
             Proceed();
         if (currentFlowIndex == 11 && e.CollidedGameObj.name == "PC2")
             Proceed();
+
+        if (currentFlowIndex == 12 && e.CollidedGameObj.name == "PC2")
+            OSIGameObj.SetActive(true);
+        if (currentFlowIndex == 12 && e.CollidedGameObj.name == "Alex")
+            CyberAttackGameObj.SetActive(true);
     }
 
     private void Dialog_DialogFinish(object sender, EventArgs e)
