@@ -213,7 +213,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6992333176769632306, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
       propertyPath: m_Name
-      value: Secretary
+      value: Amelia
       objectReference: {fileID: 0}
     - target: {fileID: 6992333177376475646, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
       propertyPath: m_Pivot.x
@@ -345,7 +345,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6992333177951119819, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
       propertyPath: m_Name
-      value: Player
+      value: Intern
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
@@ -377,7 +377,7 @@ GameObject:
   - component: {fileID: 106179722}
   - component: {fileID: 106179721}
   m_Layer: 0
-  m_Name: Player
+  m_Name: Intern
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -521,7 +521,7 @@ GameObject:
   - component: {fileID: 648998457}
   - component: {fileID: 648998456}
   m_Layer: 0
-  m_Name: Secretary
+  m_Name: Amelia
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -594,11 +594,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
       propertyPath: dialogs.Array.size
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
       propertyPath: speakers.Array.size
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
       propertyPath: dialogs.Array.data[0]
@@ -618,27 +618,34 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
       propertyPath: dialogs.Array.data[4]
-      value: "You see, the Network engineer is on sick leave and there\u2019s no
-        one capable of doing his job but now that you're here, the company is saved!"
+      value: "I forgot to introduce myself. My name is Amelia, the company\u2019s
+        IT coordinator. My job is maintaining the technology used by the company
+        and troubleshooting any errors."
       objectReference: {fileID: 0}
     - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
       propertyPath: dialogs.Array.data[5]
-      value: ehhhh
+      value: "You see\u2026 Steve, our network engineer, is on sick leave and I have
+        to take over his duties. Although, I have a lot of workload as it is."
       objectReference: {fileID: 0}
     - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
       propertyPath: dialogs.Array.data[6]
-      value: Ehehe
+      value: ehhhh
       objectReference: {fileID: 0}
     - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
       propertyPath: dialogs.Array.data[7]
-      value: What do you mean!?
+      value: Ehehe
       objectReference: {fileID: 0}
     - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
       propertyPath: dialogs.Array.data[8]
-      value: "Don\u2019t be like that. I'm gonna teach you the basics so don't worry."
+      value: What do you mean!?
       objectReference: {fileID: 0}
     - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
       propertyPath: dialogs.Array.data[9]
+      value: "Don\u2019t be like that. As your instructor, I'm gonna teach you the
+        basics so don't worry."
+      objectReference: {fileID: 0}
+    - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
+      propertyPath: dialogs.Array.data[10]
       value: Plus, we can call our Network Engineer Steve for help
       objectReference: {fileID: 0}
     - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
@@ -659,27 +666,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
       propertyPath: speakers.Array.data[5]
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
       propertyPath: speakers.Array.data[6]
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
-      propertyPath: speakers.Array.data[7]
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
-      propertyPath: speakers.Array.data[8]
+      propertyPath: speakers.Array.data[7]
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
+      propertyPath: speakers.Array.data[8]
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
       propertyPath: speakers.Array.data[9]
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
+      propertyPath: speakers.Array.data[10]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
       propertyPath: presentSpeakers.Array.size
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
       propertyPath: presentSpeakers.Array.data[0]
@@ -721,6 +732,10 @@ PrefabInstance:
       propertyPath: presentSpeakers.Array.data[9]
       value: 2,3
       objectReference: {fileID: 0}
+    - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
+      propertyPath: presentSpeakers.Array.data[10]
+      value: 2,3
+      objectReference: {fileID: 0}
     - target: {fileID: 6992333176769632304, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -747,7 +762,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6992333176769632306, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
       propertyPath: m_Name
-      value: Employee2
+      value: Enott
       objectReference: {fileID: 0}
     - target: {fileID: 6992333177376475645, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
       propertyPath: m_Color.a
@@ -895,7 +910,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6992333177951119819, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
       propertyPath: m_Name
-      value: Employee1
+      value: Tony
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
@@ -1149,7 +1164,7 @@ GameObject:
   - component: {fileID: 1439322131}
   - component: {fileID: 1439322130}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: DialogCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

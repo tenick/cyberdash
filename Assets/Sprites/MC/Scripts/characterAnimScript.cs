@@ -25,7 +25,7 @@ public class characterAnimScript : MonoBehaviour
     public Rigidbody2D rb;
     public Animator animator;
 
-    public float speed = 5f;
+    public float speed = 3f;
 
     float timeElapsed;
 

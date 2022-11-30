@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class OSILayerScript : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
@@ -11,6 +12,7 @@ public class OSILayerScript : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     RectTransform OSILayerRect;
 
     // states
+    public bool isMoveable { get; set; } = true;
     public bool isInOSISlot { get; set; } = false;
     public int slotIndex { get; set; } = -1; // useless without isInOSISlot; -1 means not in any slot
     bool isDragging = false;
@@ -52,9 +54,16 @@ public class OSILayerScript : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         }
     }
 
+    public void SetAsGiven()
+    {
+        Image img = this.GetComponent<Image>();
+        img.color = new Color(0, 255, 0);
+        isMoveable = false;
+    }
+
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (!isDragging)
+        if (!isDragging && isMoveable)
         {
             // reset states
             slotIndex = -1;

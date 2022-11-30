@@ -25,9 +25,13 @@ public static class ListExtension
 
 public class PCScript : MonoBehaviour
 {
+    public event EventHandler OnClose;
+
     public GameObject DefaultSlots;
     public GameObject OSISlots;
     public GameObject OSILayers;
+
+    public bool isCorrect;
 
     public int GivenNoOfLayers;
 
@@ -52,8 +56,12 @@ public class PCScript : MonoBehaviour
         foreach (int osiLayerIndex in osiLayers)
         {
             // fix osiLayerIndex order based on gameobject heirarchy
-            OSILayerScript oSILayerScript = OSILayers.transform.GetChild(osiLayerIndex).GetComponent<OSILayerScript>();
+            GameObject osiLayer = OSILayers.transform.GetChild(osiLayerIndex).gameObject;
+            OSILayerScript oSILayerScript = osiLayer.GetComponent<OSILayerScript>();
             RectTransform oSISlot = OSISlots.transform.GetChild(osiLayerIndex).GetComponent<RectTransform>();
+
+            // set as given
+            oSILayerScript.SetAsGiven();
 
             oSILayerScript.PutToOSISlot(oSISlot);
         }
@@ -66,6 +74,7 @@ public class PCScript : MonoBehaviour
     public void CloseBtn()
     {
         gameObject.SetActive(false);
+        OnClose?.Invoke(this, EventArgs.Empty);
     }
     public void Check()
     {
@@ -90,6 +99,7 @@ public class PCScript : MonoBehaviour
             }
         }
 
+        isCorrect = result;
         if (result)
             CheckResultText.text = "Correct";
         else

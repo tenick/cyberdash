@@ -37,6 +37,7 @@ public class sceneTransitionScript : MonoBehaviour
     {
         if (PlayFadeInOnChangeScene)
         {
+            Debug.Log("IS IT FUCKING FADING IN??? TO SCENE " + TransitionToScene);
             // play transition (if user wants to) and wait for transition to finish
             animator.SetTrigger("startFadeIn");
 

@@ -27,19 +27,30 @@ public class levle1TutorialScript : MonoBehaviour
     public GameObject OSIGameObj;
     public GameObject CyberAttackGameObj;
 
+    public GameObject OSIInstructions;
+
     public List<Action> SceneFlow;
 
     public int currentFlowIndex;
 
+    // win conditions:
+    bool osiGameIsCorrect = false;
+
+    public Animator LevelCompleteAnimator;
+
+    public sceneTransitionScript sceneTransition;
+
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(WaitForSecs(2));
+        // fadeout the level 1 tutorial panel
+        StartCoroutine(WaitForSecs(2, () => { level1PanelFadeoutAnimator.SetTrigger("playFadeout"); }));
 
         // setup
         currentFlowIndex = 0;
         CharacterScript.InteractStart += CharacterScript_InteractStart;
         CharacterScript.CurrentInteractableObjects = new() { Amelia };
+        OSIGameObj.GetComponent<PCScript>().OnClose += OSIGame_OnClose;
 
         // define the scene flow
         SceneFlow = new List<Action>();
@@ -109,8 +120,7 @@ public class levle1TutorialScript : MonoBehaviour
         SceneFlow.Add(() => // 10 move exclamation point to PC2
         {
             CharacterScript.canControl = true;
-            JumpingExclamation.transform.position = new Vector2(4.22f, 3.58f);
-            GameObject newJE = Instantiate(JumpingExclamation, new Vector2(-5.74f, 1.36f), Quaternion.identity);
+            JumpingExclamation.transform.position = new Vector2(-5.74f, 1.36f);
         });
         SceneFlow.Add(() => // 11 : talk to PC 2
         {
@@ -119,6 +129,16 @@ public class levle1TutorialScript : MonoBehaviour
             OSIGameObj.SetActive(true);
 
         });
+        SceneFlow.Add(() => // 12 : show OSI game instructions
+        {
+            OSIInstructions.SetActive(true);
+        });
+    }
+
+    private void OSIGame_OnClose(object sender, EventArgs e)
+    {
+        osiGameIsCorrect = ((PCScript)sender).isCorrect;
+        CheckIfGameOver();
     }
 
     private void NotesScript_OnOpen(object sender, EventArgs e)
@@ -132,7 +152,18 @@ public class levle1TutorialScript : MonoBehaviour
             Proceed();
     }
 
-    
+    void CheckIfGameOver()
+    {
+        if (osiGameIsCorrect)
+        {
+            LevelCompleteAnimator.SetTrigger("play");
+            StartCoroutine(WaitForSecs(1, () => {
+                sceneTransition.TransitionToScene = 5;
+                sceneTransition.PlayFadeInOnChangeScene = true;
+                sceneTransition.DoTransition();
+            }));
+        }
+    }
 
     private void CharacterScript_InteractStart(object sender, InteractArgs e)
     {
@@ -152,13 +183,11 @@ public class levle1TutorialScript : MonoBehaviour
             Proceed();
         if (currentFlowIndex == 9 && e.CollidedGameObj.name == "Amelia")
             Proceed();
-        if (currentFlowIndex == 11 && e.CollidedGameObj.name == "PC2")
+        if (currentFlowIndex == 11 && e.CollidedGameObj.name == "Alex")
             Proceed();
 
-        if (currentFlowIndex == 12 && e.CollidedGameObj.name == "PC2")
+        if (currentFlowIndex == 13 && e.CollidedGameObj.name == "Alex")
             OSIGameObj.SetActive(true);
-        if (currentFlowIndex == 12 && e.CollidedGameObj.name == "Alex")
-            CyberAttackGameObj.SetActive(true);
     }
 
     private void Dialog_DialogFinish(object sender, EventArgs e)
@@ -177,10 +206,10 @@ public class levle1TutorialScript : MonoBehaviour
     {
     }
 
-    IEnumerator WaitForSecs(int secs)
+    IEnumerator WaitForSecs(int secs, Action runAfter)
     {
         yield return new WaitForSeconds(secs);
 
-        level1PanelFadeoutAnimator.SetTrigger("playFadeout");
+        runAfter();
     }
 }
