@@ -17,17 +17,20 @@ public class levle1TutorialScript : MonoBehaviour
     public GameObject NotesBtn;
     public notesUIScript NotesScript;
 
-    public GameObject AmeliaDialog1;
-    public GameObject AmeliaDialog2;
-    public GameObject AmeliaDialog3;
-    public GameObject PlayerDialog1;
-    public GameObject AmeliaDialog4;
-    public GameObject AmeliaDialog5;
+    public dialogHandlerScript AmeliaDialog1;
+    public dialogHandlerScript AmeliaDialog2;
+    public dialogHandlerScript AmeliaDialog3;
+    public dialogHandlerScript PlayerDialog1;
+    public dialogHandlerScript AmeliaDialog4;
+    public dialogHandlerScript AmeliaDialog5;
+    public dialogHandlerScript AmeliaDialog6;
 
     public GameObject OSIGameObj;
+    public GameObject WireGameObj;
     public GameObject CyberAttackGameObj;
 
     public GameObject OSIInstructions;
+    public GameObject WireGameInstructions;
 
     public List<Action> SceneFlow;
 
@@ -56,10 +59,10 @@ public class levle1TutorialScript : MonoBehaviour
         SceneFlow = new List<Action>();
         SceneFlow.Add(() => // 0 show amelia 1st dialog
         {
-            AmeliaDialog1.SetActive(true);
+            AmeliaDialog1.gameObject.SetActive(true);
             CharacterScript.canControl = false;
-            AmeliaDialog1.GetComponent<dialogHandlerScript>().Restart();
-            AmeliaDialog1.GetComponent<dialogHandlerScript>().DialogFinish += Dialog_DialogFinish;
+            AmeliaDialog1.Restart();
+            AmeliaDialog1.DialogFinish += Dialog_DialogFinish;
         });
         SceneFlow.Add(() => // 1 move exclamation point to bob
         {
@@ -68,10 +71,10 @@ public class levle1TutorialScript : MonoBehaviour
         });
         SceneFlow.Add(() => // 2 show amelia 2nd dialog
         {
-            AmeliaDialog2.SetActive(true);
+            AmeliaDialog2.gameObject.SetActive(true);
             CharacterScript.canControl = false;
-            AmeliaDialog2.GetComponent<dialogHandlerScript>().Restart();
-            AmeliaDialog2.GetComponent<dialogHandlerScript>().DialogFinish += Dialog_DialogFinish;
+            AmeliaDialog2.Restart();
+            AmeliaDialog2.DialogFinish += Dialog_DialogFinish;
         });
         SceneFlow.Add(() => // 3 move exclamation point back to Amelia
         {
@@ -80,10 +83,10 @@ public class levle1TutorialScript : MonoBehaviour
         });
         SceneFlow.Add(() => // 4 show amelia 3rd dialog
         {
-            AmeliaDialog3.SetActive(true);
+            AmeliaDialog3.gameObject.SetActive(true);
             CharacterScript.canControl = false;
-            AmeliaDialog3.GetComponent<dialogHandlerScript>().Restart();
-            AmeliaDialog3.GetComponent<dialogHandlerScript>().DialogFinish += Dialog_DialogFinish;
+            AmeliaDialog3.Restart();
+            AmeliaDialog3.DialogFinish += Dialog_DialogFinish;
         });
         SceneFlow.Add(() => // 5 hide exclamation and show arrow pointing to notes (show notes)
         {
@@ -102,8 +105,8 @@ public class levle1TutorialScript : MonoBehaviour
         SceneFlow.Add(() => // 7
         {
             ArrowNotif.SetActive(false);
-            PlayerDialog1.GetComponent<dialogHandlerScript>().Restart();
-            PlayerDialog1.GetComponent<dialogHandlerScript>().DialogFinish += Dialog_DialogFinish;
+            PlayerDialog1.Restart();
+            PlayerDialog1.DialogFinish += Dialog_DialogFinish;
         });
         SceneFlow.Add(() => // 8
         {
@@ -114,25 +117,16 @@ public class levle1TutorialScript : MonoBehaviour
         {
             JumpingExclamation.SetActive(true);
             CharacterScript.canControl = false;
-            AmeliaDialog4.GetComponent<dialogHandlerScript>().Restart();
-            AmeliaDialog4.GetComponent<dialogHandlerScript>().DialogFinish += Dialog_DialogFinish;
+            AmeliaDialog4.Restart();
+            AmeliaDialog4.DialogFinish += Dialog_DialogFinish;
         });
         SceneFlow.Add(() => // 10 move exclamation point to PC2
         {
             CharacterScript.canControl = true;
             JumpingExclamation.transform.position = new Vector2(-5.74f, 1.36f);
+            Instantiate(JumpingExclamation, new Vector3(-1.72f, 1.36f), Quaternion.identity);
         });
-        SceneFlow.Add(() => // 11 : talk to PC 2
-        {
-            AmeliaDialog5.GetComponent<dialogHandlerScript>().Restart();
-            AmeliaDialog5.GetComponent<dialogHandlerScript>().DialogFinish += Dialog_DialogFinish;
-            OSIGameObj.SetActive(true);
 
-        });
-        SceneFlow.Add(() => // 12 : show OSI game instructions
-        {
-            OSIInstructions.SetActive(true);
-        });
     }
 
     private void OSIGame_OnClose(object sender, EventArgs e)
@@ -165,6 +159,9 @@ public class levle1TutorialScript : MonoBehaviour
         }
     }
 
+    bool explainedOSIGame = false;
+    bool onOSIDialog = false;
+    bool explainedWireGame = false;
     private void CharacterScript_InteractStart(object sender, InteractArgs e)
     {
         if (currentFlowIndex == 0 && e.CollidedGameObj.name == "Amelia")
@@ -184,15 +181,48 @@ public class levle1TutorialScript : MonoBehaviour
         if (currentFlowIndex == 9 && e.CollidedGameObj.name == "Amelia")
             Proceed();
         if (currentFlowIndex == 11 && e.CollidedGameObj.name == "Alex")
-            Proceed();
-
-        if (currentFlowIndex == 13 && e.CollidedGameObj.name == "Alex")
+        {
+            Debug.Log(e.CollidedGameObj.name);
+            if (!explainedOSIGame)
+            {
+                AmeliaDialog5.Restart();
+                AmeliaDialog5.DialogFinish += Dialog_DialogFinish;
+            }
             OSIGameObj.SetActive(true);
+        }
+        if (currentFlowIndex == 11 && e.CollidedGameObj.name == "Bob")
+        {
+            Debug.Log(e.CollidedGameObj.name);
+            if (!explainedWireGame)
+            {
+                AmeliaDialog6.Restart();
+                AmeliaDialog6.DialogFinish += Dialog_DialogFinish;
+            }
+            WireGameObj.SetActive(true);
+            //WireGameObj.GetComponent<WireGameScript>().Reset();
+        }
     }
 
     private void Dialog_DialogFinish(object sender, EventArgs e)
     {
-        Proceed();
+        Debug.Log("explained OSI? : " + explainedOSIGame + " explained Wire Game? : " + explainedWireGame);
+        Debug.Log("CurrentFlowIndex: " + currentFlowIndex + " sender? " + sender + " amelia5: " + AmeliaDialog5 + " amelia6: " + AmeliaDialog6);
+        Debug.Log((object.ReferenceEquals(sender, AmeliaDialog5)) + " | " + (object.ReferenceEquals(sender, AmeliaDialog6)));
+        if (object.ReferenceEquals(sender, AmeliaDialog5) && currentFlowIndex == 11 && !explainedOSIGame)
+        {
+            Debug.Log("ameliaDialog5 finished");
+            OSIInstructions.SetActive(true);
+            explainedOSIGame = true;
+        }
+        if (object.ReferenceEquals(sender, AmeliaDialog6) && currentFlowIndex == 11 && !explainedWireGame)
+        {
+            Debug.Log("ameliaDialog6 finished");
+            WireGameInstructions.SetActive(true);
+            explainedWireGame = true;
+        }
+
+        if (currentFlowIndex !=  11)
+            Proceed();
     }
 
     void Proceed()
