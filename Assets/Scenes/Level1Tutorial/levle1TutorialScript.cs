@@ -38,6 +38,7 @@ public class levle1TutorialScript : MonoBehaviour
 
     // win conditions:
     bool osiGameIsCorrect = false;
+    bool wireGameIsCorrect = false;
 
     public Animator LevelCompleteAnimator;
 
@@ -53,7 +54,8 @@ public class levle1TutorialScript : MonoBehaviour
         currentFlowIndex = 0;
         CharacterScript.InteractStart += CharacterScript_InteractStart;
         CharacterScript.CurrentInteractableObjects = new() { Amelia };
-        OSIGameObj.GetComponent<PCScript>().OnClose += OSIGame_OnClose;
+        OSIGameObj.GetComponent<PCScript>().Close += OSIGame_OnClose;
+        WireGameObj.GetComponent<WireGameScript>().Close += WireGame_OnClose;
 
         // define the scene flow
         SceneFlow = new List<Action>();
@@ -129,6 +131,12 @@ public class levle1TutorialScript : MonoBehaviour
 
     }
 
+    private void WireGame_OnClose(object sender, EventArgs e)
+    {
+        wireGameIsCorrect = ((WireGameScript)sender).isCorrect;
+        CheckIfGameOver();
+    }
+
     private void OSIGame_OnClose(object sender, EventArgs e)
     {
         osiGameIsCorrect = ((PCScript)sender).isCorrect;
@@ -148,7 +156,7 @@ public class levle1TutorialScript : MonoBehaviour
 
     void CheckIfGameOver()
     {
-        if (osiGameIsCorrect)
+        if (osiGameIsCorrect && wireGameIsCorrect)
         {
             LevelCompleteAnimator.SetTrigger("play");
             StartCoroutine(WaitForSecs(1, () => {

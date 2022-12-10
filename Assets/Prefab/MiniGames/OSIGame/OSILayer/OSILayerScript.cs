@@ -104,10 +104,15 @@ public class OSILayerScript : MonoBehaviour, IPointerDownHandler, IPointerUpHand
                 int newOSISlotIndex = Convert.ToInt32(minDistByOSISlot.OSISlot.name[minDistByOSISlot.OSISlot.name.Length - 1] + "") - 1;
                 for (int i = 0; i < PCScript.OSILayers.transform.childCount; i++)
                 {
-                    OSILayerScript osiSlot = PCScript.OSILayers.transform.GetChild(i).gameObject.GetComponent<OSILayerScript>();
-                    if (osiSlot.isInOSISlot && osiSlot.slotIndex == newOSISlotIndex)
+                    OSILayerScript existingOsiSlot = PCScript.OSILayers.transform.GetChild(i).gameObject.GetComponent<OSILayerScript>();
+                    if (existingOsiSlot.isInOSISlot && existingOsiSlot.slotIndex == newOSISlotIndex)
                     {
-                        osiSlot.PutToDefaultSlot();
+                        if (!existingOsiSlot.isMoveable)
+                        {
+                            PutToDefaultSlot();
+                            return;
+                        }
+                        existingOsiSlot.PutToDefaultSlot();
                         break;
                     }
                 }

@@ -1,3 +1,4 @@
+using Assets.Prefab.CyberAttackGame.Attacks;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,61 +13,57 @@ public enum ToolState
 
 public class CyberAttackScript : MonoBehaviour
 {
-    public Texture2D heart;
-    public Texture2D noHeart;
     public Texture2D magnifyingGlassCursor;
     public Texture2D padlockCursor;
 
-    public GameObject healthUI;
-
-    public int currentHearts = 3;
-
-    public GameObject DNSHijack;
-    public GameObject MITMA;
-    public GameObject DDOS;
+    public AttackBase Attack;
     public Transform ParentObject;
+
+    public GameObject AttackLocations;
 
     public ToolState currToolState;
 
     // Start is called before the first frame update
     void Start()
     {
-        lastDNSHijack = Time.time + DNSHijackScript.RandomCD / 2;
-        lastMITMA = Time.time + MITMAScript.RandomCD / 2;
-        lastDDOS = Time.time + DDOSScript.RandomCD / 2;
+        lastAttack1 = Time.time + Attack.RandomCD / 2;
+        lastAttack2 = Time.time + Attack.RandomCD / 2;
+        lastAttack3 = Time.time + Attack.RandomCD / 2;
         currToolState = ToolState.Default;
     }
 
     public void CloseBtn()
     {
+        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+        currToolState = ToolState.Default;
         gameObject.SetActive(false);
     }
 
-    float lastDNSHijack;
-    float lastMITMA;
-    float lastDDOS;
+    float lastAttack1;
+    float lastAttack2;
+    float lastAttack3;
     
     void Update()
     {
-        if (Time.time > lastDNSHijack)
+        if (Time.time > lastAttack1)
         {
-            GameObject newDNSHijack = Instantiate(DNSHijack, ParentObject);
-            newDNSHijack.SetActive(true);
-            lastDNSHijack = Time.time + DNSHijackScript.RandomCD;
+            GameObject newAttack1 = Instantiate(Attack.gameObject, AttackLocations.transform.GetChild(0).position, Quaternion.identity, ParentObject);
+            newAttack1.SetActive(true);
+            lastAttack1 = Time.time + Attack.RandomCD;
         }
 
-        if (Time.time > lastMITMA)
+        if (Time.time > lastAttack2)
         {
-            GameObject newMITMA = Instantiate(MITMA, ParentObject);
-            newMITMA.SetActive(true);
-            lastMITMA = Time.time + MITMAScript.RandomCD;
+            GameObject newAttack2 = Instantiate(Attack.gameObject, AttackLocations.transform.GetChild(1).position, Quaternion.identity, ParentObject);
+            newAttack2.SetActive(true);
+            lastAttack2 = Time.time + Attack.RandomCD;
         }
 
-        if (Time.time > lastDDOS)
+        if (Time.time > lastAttack3)
         {
-            GameObject newDDOS = Instantiate(DDOS, ParentObject);
-            newDDOS.SetActive(true);
-            lastDDOS = Time.time + DDOSScript.RandomCD;
+            GameObject newAttack3 = Instantiate(Attack.gameObject, AttackLocations.transform.GetChild(2).position, Quaternion.identity, ParentObject);
+            newAttack3.SetActive(true);
+            lastAttack3 = Time.time + Attack.RandomCD;
         }
     }
 
@@ -74,8 +71,9 @@ public class CyberAttackScript : MonoBehaviour
     {
         if (isMaliciousMessage)
         {
-            healthUI.transform.GetChild(currentHearts - 1).GetComponent<Image>().sprite = Sprite.Create(noHeart, Rect.zero, new Vector2());
-            currentHearts--;
+            // henlo dis is for damage 
+            //healthUI.transform.GetChild(currentHearts - 1).GetComponent<Image>().sprite = Sprite.Create(noHeart, Rect.zero, new Vector2());
+            //currentHearts--;
         }
     }
 

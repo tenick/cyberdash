@@ -6,13 +6,13 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MITMAScript : MonoBehaviour
+public class MITMAScript : AttackBase
 {
     System.Guid g = System.Guid.NewGuid();
     public static int MinCooldown = 30;
     public static float CDAddVariance = 1f;
     static System.Random rand = new System.Random();
-    public static float RandomCD
+    public override float RandomCD
     {
         get { return MinCooldown * (float)(1 + CDAddVariance * rand.NextDouble()); }
     }

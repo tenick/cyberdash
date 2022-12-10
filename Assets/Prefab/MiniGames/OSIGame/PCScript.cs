@@ -23,15 +23,21 @@ public static class ListExtension
     }
 } 
 
-public class PCScript : MonoBehaviour
+public class PCScript : MiniGameBase
 {
-    public event EventHandler OnClose;
+    public static int MinCooldown = 30;
+    public static float CDAddVariance = .5f;
+    static System.Random rand = new System.Random();
+
+    public override float RandomCD
+    {
+        get { return MinCooldown * (float)(1 + CDAddVariance * rand.NextDouble()); }
+    }
 
     public GameObject DefaultSlots;
     public GameObject OSISlots;
     public GameObject OSILayers;
 
-    public bool isCorrect;
 
     public int GivenNoOfLayers;
 
@@ -74,9 +80,9 @@ public class PCScript : MonoBehaviour
     public void CloseBtn()
     {
         gameObject.SetActive(false);
-        OnClose?.Invoke(this, EventArgs.Empty);
+        OnClose();
     }
-    public void Check()
+    public void CheckBtn()
     {
         bool result = true;
         for (int i = 0; i < 7; i++)
@@ -104,5 +110,7 @@ public class PCScript : MonoBehaviour
             CheckResultText.text = "Correct";
         else
             CheckResultText.text = "Wrong";
+
+        OnCheck();
     }
 }

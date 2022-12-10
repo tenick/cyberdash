@@ -6,17 +6,16 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 
-public class DNSHijackScript : MonoBehaviour
+public class DNSHijackScript : AttackBase
 {
     System.Guid g = System.Guid.NewGuid();
     public static int MinCooldown = 35;
     public static float CDAddVariance = .33f; // [0,1] : random percentage of MinCooldown to be added
     static System.Random rand = new System.Random();
-    public static float RandomCD
+    public override float RandomCD
     {
         get { return MinCooldown * (float)(1 + CDAddVariance * rand.NextDouble()); }
     }
-
 
     Dictionary<string, string> wrongToCorrect = new()
     {
