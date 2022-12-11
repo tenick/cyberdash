@@ -113,7 +113,7 @@ public class dialogHandlerScript : MonoBehaviour
         }
 
         // handle current dialog name and text
-        nameTxt.text = sprites[currentSpeaker].gameObject.name;
+        nameTxt.text = currentPresentSpeakers.Count != 0 ? sprites[currentSpeaker].gameObject.name : "";
         dialogTxt.text = currentDialog;
 
 

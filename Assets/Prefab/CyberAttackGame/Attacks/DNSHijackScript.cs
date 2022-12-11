@@ -51,9 +51,9 @@ public class DNSHijackScript : AttackBase
     {
         DomainNameText.text = wrongToCorrect.ElementAt(rand.Next(0, 4)).Key;
 
-        cyberAttackScript = GameObject.Find("CyberAttackGame").GetComponent<CyberAttackScript>();
+        cyberAttackScript = gameObject.transform.parent.parent.parent.GetComponent<CyberAttackScript>();
         started = true;
-        ServerPosition = GameObject.Find("ServerPosition").GetComponent<RectTransform>().anchoredPosition;
+        ServerPosition = gameObject.transform.parent.parent.Find("ServerPosition").GetComponent<RectTransform>().anchoredPosition;
         startTime = Time.time;
         endTime = startTime + TimeToReachServerInSecs;
         dnsHijackRectTransform = transform.GetComponent<RectTransform>();

@@ -1,4 +1,5 @@
 using Assets.Prefab.CyberAttackGame.Attacks;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,8 +12,19 @@ public enum ToolState
     Padlock
 }
 
+public class CyberAttackMessageReceiveArgs : EventArgs
+{
+    public bool IsMaliciousMessage { get; set; }
+    public CyberAttackMessageReceiveArgs(bool isMaliciousMessage)
+    {
+        IsMaliciousMessage = isMaliciousMessage;
+    }
+}
+
 public class CyberAttackScript : MonoBehaviour
 {
+    public event EventHandler<CyberAttackMessageReceiveArgs> MessageReceive;
+
     public Texture2D magnifyingGlassCursor;
     public Texture2D padlockCursor;
 
@@ -69,12 +81,7 @@ public class CyberAttackScript : MonoBehaviour
 
     public void ReceiveMessage(bool isMaliciousMessage)
     {
-        if (isMaliciousMessage)
-        {
-            // henlo dis is for damage 
-            //healthUI.transform.GetChild(currentHearts - 1).GetComponent<Image>().sprite = Sprite.Create(noHeart, Rect.zero, new Vector2());
-            //currentHearts--;
-        }
+        MessageReceive?.Invoke(this, new CyberAttackMessageReceiveArgs(isMaliciousMessage));
     }
 
     public void OnClick_MagnifyingGlassTool()

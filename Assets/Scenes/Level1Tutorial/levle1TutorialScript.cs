@@ -13,6 +13,7 @@ public class levle1TutorialScript : MonoBehaviour
     public GameObject Amelia;
     public GameObject Bob;
     public GameObject JumpingExclamation;
+    GameObject JumpingExclamationWireGame;
     public GameObject ArrowNotif;
     public GameObject NotesBtn;
     public notesUIScript NotesScript;
@@ -126,7 +127,7 @@ public class levle1TutorialScript : MonoBehaviour
         {
             CharacterScript.canControl = true;
             JumpingExclamation.transform.position = new Vector2(-5.74f, 1.36f);
-            Instantiate(JumpingExclamation, new Vector3(-1.72f, 1.36f), Quaternion.identity);
+            JumpingExclamationWireGame = Instantiate(JumpingExclamation, new Vector3(-1.72f, 1.36f), Quaternion.identity);
         });
 
     }
@@ -134,12 +135,17 @@ public class levle1TutorialScript : MonoBehaviour
     private void WireGame_OnClose(object sender, EventArgs e)
     {
         wireGameIsCorrect = ((WireGameScript)sender).isCorrect;
+        if (wireGameIsCorrect)
+            JumpingExclamationWireGame.SetActive(false);
+
         CheckIfGameOver();
     }
 
     private void OSIGame_OnClose(object sender, EventArgs e)
     {
         osiGameIsCorrect = ((PCScript)sender).isCorrect;
+        if (osiGameIsCorrect)
+            JumpingExclamation.SetActive(false);
         CheckIfGameOver();
     }
 
