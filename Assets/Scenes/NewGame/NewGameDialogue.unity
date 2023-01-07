@@ -141,19 +141,19 @@ PrefabInstance:
     - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
       propertyPath: dialogs.Array.data[0]
       value: "There\u2019s a lot of work to be done. The office\u2019s entire network
-        is not functioning"
+        is not functioning."
       objectReference: {fileID: 0}
     - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
       propertyPath: dialogs.Array.data[1]
-      value: 'From now on, this is your workspace and this is your computer '
+      value: From now on, this is your workspace and this is your computer .
       objectReference: {fileID: 0}
     - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
       propertyPath: dialogs.Array.data[2]
-      value: 'But it says no connection  '
+      value: But it says no connection.
       objectReference: {fileID: 0}
     - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
       propertyPath: dialogs.Array.data[3]
-      value: "Huh\u2026 Well i guess we have to fix the connection first"
+      value: "Huh\u2026 Well i guess we have to fix the connection first."
       objectReference: {fileID: 0}
     - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
       propertyPath: speakers.Array.data[0]
@@ -594,15 +594,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
       propertyPath: dialogs.Array.size
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
       propertyPath: speakers.Array.size
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
       propertyPath: dialogs.Array.data[0]
-      value: OH GOD, MY COMPUTER IS ON FLAMES
+      value: OH GOD, MY COMPUTER IS ON FLAMES!
       objectReference: {fileID: 0}
     - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
       propertyPath: dialogs.Array.data[1]
@@ -629,20 +629,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
       propertyPath: dialogs.Array.data[6]
-      value: ehhhh
+      value: ehhhh...
       objectReference: {fileID: 0}
     - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
       propertyPath: dialogs.Array.data[7]
-      value: Ehehe
-      objectReference: {fileID: 0}
-    - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
-      propertyPath: dialogs.Array.data[8]
       value: What do you mean!?
       objectReference: {fileID: 0}
     - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
+      propertyPath: dialogs.Array.data[8]
+      value: "Don\u2019t be like that. I'm gonna teach you the basics so don't worry."
+      objectReference: {fileID: 0}
+    - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
       propertyPath: dialogs.Array.data[9]
-      value: "Don\u2019t be like that. As your instructor, I'm gonna teach you the
-        basics so don't worry."
+      value: Plus, we can call our Network Engineer Steve for help.
       objectReference: {fileID: 0}
     - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
       propertyPath: dialogs.Array.data[10]
@@ -674,11 +673,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
       propertyPath: speakers.Array.data[7]
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
       propertyPath: speakers.Array.data[8]
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
       propertyPath: speakers.Array.data[9]
@@ -690,7 +689,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
       propertyPath: presentSpeakers.Array.size
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
       propertyPath: presentSpeakers.Array.data[0]

@@ -1120,11 +1120,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
       propertyPath: dialogs.Array.size
-      value: 5
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
       propertyPath: speakers.Array.size
-      value: 5
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
       propertyPath: dialogs.Array.data[0]
@@ -1137,14 +1137,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
       propertyPath: dialogs.Array.data[2]
-      value: ..
+      value: '*taking notes*'
       objectReference: {fileID: 0}
     - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
       propertyPath: dialogs.Array.data[3]
-      value: ...
+      value: ..
       objectReference: {fileID: 0}
     - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
       propertyPath: dialogs.Array.data[4]
+      value: '*still taking notes*'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
+      propertyPath: dialogs.Array.data[5]
+      value: Now pick up the company handbook that I left on the counter.
+      objectReference: {fileID: 0}
+    - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
+      propertyPath: dialogs.Array.data[6]
+      value: You can look at your company handbook by clicking the notes icon.
+      objectReference: {fileID: 0}
+    - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
+      propertyPath: dialogs.Array.data[7]
+      value: This contains the details of your job and the lessons you need to master
+        as you progress.
+      objectReference: {fileID: 0}
+    - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
+      propertyPath: dialogs.Array.data[8]
       value: Steve is done diagnosing the problem. Here's his diagnosis.
       objectReference: {fileID: 0}
     - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
@@ -1161,11 +1178,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
       propertyPath: speakers.Array.data[4]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
+      propertyPath: speakers.Array.data[5]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
+      propertyPath: speakers.Array.data[6]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
+      propertyPath: speakers.Array.data[7]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
+      propertyPath: speakers.Array.data[8]
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
       propertyPath: presentSpeakers.Array.size
-      value: 5
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
       propertyPath: presentSpeakers.Array.data[0]
@@ -1185,6 +1218,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
       propertyPath: presentSpeakers.Array.data[4]
+      value: 0,1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
+      propertyPath: presentSpeakers.Array.data[5]
+      value: 0,1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
+      propertyPath: presentSpeakers.Array.data[6]
+      value: 0,1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
+      propertyPath: presentSpeakers.Array.data[7]
+      value: 0,1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
+      propertyPath: presentSpeakers.Array.data[8]
       value: 0,1
       objectReference: {fileID: 0}
     - target: {fileID: 6992333176769632304, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
@@ -3583,7 +3632,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
       propertyPath: dialogs.Array.data[0]
-      value: I see, the computer server is the culprit. Let see what we can do
+      value: I see, the computer server is the culprit. Let's see what we can do
       objectReference: {fileID: 0}
     - target: {fileID: 4582716551943808005, guid: 75049fdc704e80c418e5a07fde69d19a, type: 3}
       propertyPath: dialogs.Array.data[1]
