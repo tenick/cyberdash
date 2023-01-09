@@ -8,15 +8,6 @@ using UnityEngine.UI;
 
 public class DDOSScript : AttackBase
 {
-    System.Guid g = System.Guid.NewGuid();
-    public static int MinCooldown = 45;
-    public static float CDAddVariance = .4f;
-    static System.Random rand = new System.Random();
-    public override float RandomCD
-    {
-        get { return MinCooldown * (float)(1 + CDAddVariance * rand.NextDouble()); }
-    }
-
     List<string> wordList = new()
     {
         "google.com",
@@ -40,18 +31,6 @@ public class DDOSScript : AttackBase
     public TextMeshProUGUI MessageText3;
     public TMP_InputField InputField;
 
-    public Vector2 ServerPosition;
-
-
-    public int TimeToReachServerInSecs = 65;
-
-    CyberAttackScript cyberAttackScript;
-    float startTime;
-    float endTime;
-    int speed;
-    bool started;
-    Vector2 dnsHijackInitPosition;
-    RectTransform dnsHijackRectTransform;
 
     // win conditions
     string lastEnteredText = "";

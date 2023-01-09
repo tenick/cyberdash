@@ -8,15 +8,6 @@ using System.Linq;
 
 public class DNSHijackScript : AttackBase
 {
-    System.Guid g = System.Guid.NewGuid();
-    public static int MinCooldown = 35;
-    public static float CDAddVariance = .33f; // [0,1] : random percentage of MinCooldown to be added
-    static System.Random rand = new System.Random();
-    public override float RandomCD
-    {
-        get { return MinCooldown * (float)(1 + CDAddVariance * rand.NextDouble()); }
-    }
-
     Dictionary<string, string> wrongToCorrect = new()
     {
         { "goggol.com", "google.com" },
@@ -29,18 +20,6 @@ public class DNSHijackScript : AttackBase
     public TextMeshProUGUI DomainNameText;
     public TMP_InputField InputField;
 
-
-    public Vector2 ServerPosition;
-
-    public int TimeToReachServerInSecs = 60;
-
-    CyberAttackScript cyberAttackScript;
-    float startTime;
-    float endTime;
-    int speed;
-    bool started;
-    Vector2 dnsHijackInitPosition;
-    RectTransform dnsHijackRectTransform;
 
     // win conditions
     bool correctedDomainName = false;

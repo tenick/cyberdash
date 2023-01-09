@@ -38,17 +38,23 @@ public class CyberAttackScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        lastAttack1 = Time.time + Attack.RandomCD / 2;
-        lastAttack2 = Time.time + Attack.RandomCD / 2;
-        lastAttack3 = Time.time + Attack.RandomCD / 2;
+        lastAttack1 = Time.time + Attack.RandomCD / 4;
+        lastAttack2 = Time.time + Attack.RandomCD / 4;
+        lastAttack3 = Time.time + Attack.RandomCD / 4;
         currToolState = ToolState.Default;
     }
 
+    public void ShowBtn()
+    {
+        Vector3 camPos = Camera.main.transform.position;
+        camPos.z = 0;
+        transform.position = camPos;
+    }
     public void CloseBtn()
     {
         Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
         currToolState = ToolState.Default;
-        gameObject.SetActive(false);
+        transform.position += new Vector3(0, -1000, 0);
     }
 
     float lastAttack1;

@@ -1,7 +1,10 @@
+using Assets.Prefab.LevelGameHandlerScript;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Level2Script : MonoBehaviour
 {
@@ -29,6 +32,9 @@ public class Level2Script : MonoBehaviour
     public AttackBase Attack1;
 
     public GameObject JumpingExclamation;
+
+
+    public LevelGameHandlerScript levelGameHandlerScript;
 
     // Start is called before the first frame update
     void Start()
@@ -93,14 +99,18 @@ public class Level2Script : MonoBehaviour
 
         SceneFlow.Add(() => // 4: show cyber attack game
         {
+            // set cooldown
+            Attack1.MinCooldown = 20;
+            Attack1.TimeToReachServerInSecs = 25;
             CyberAttack.Attack = Attack1;
-            
+
             CyberAttackInstance = Instantiate(CyberAttack, CyberAttackParentCanvas);
+
             Destroy(CyberAttackInstance.transform.GetChild(0).Find("XBtn").gameObject);
             Destroy(CyberAttackInstance.transform.GetChild(0).Find("Hackerdood").gameObject);
             Destroy(CyberAttackInstance.transform.GetChild(0).Find("ToolsPanel").Find("Padlock").gameObject);
 
-            CyberAttackInstance.MessageReceive += CyberAttackInstance_MessageReceive;
+            CyberAttackInstance.MessageReceive += TutorialCyberAttackInstance_MessageReceive;
             CharacterScript.canControl = false;
             JumpingExclamation.SetActive(false);
         });
@@ -116,7 +126,7 @@ public class Level2Script : MonoBehaviour
 
     }
 
-    private void CyberAttackInstance_MessageReceive(object sender, CyberAttackMessageReceiveArgs e)
+    private void TutorialCyberAttackInstance_MessageReceive(object sender, CyberAttackMessageReceiveArgs e)
     {
         if (!e.IsMaliciousMessage)
         {
@@ -124,6 +134,13 @@ public class Level2Script : MonoBehaviour
             if (correctMessages == 3)
                 Proceed();
         }
+    }
+
+    private void CyberAttackInstance_MessageReceive(object sender, CyberAttackMessageReceiveArgs e)
+    {
+        if (e.IsMaliciousMessage)
+            levelGameHandlerScript.AddHealth(-1);
+        else levelGameHandlerScript.AddHealth(1);
     }
 
     void Proceed()
@@ -144,6 +161,10 @@ public class Level2Script : MonoBehaviour
     {
         if (currentFlowIndex == 1 && e.CollidedGameObj.name == "PC1")
             Proceed();
+        else if (currentFlowIndex == 6 && e.CollidedGameObj.name == "PC1")
+        {
+            CyberAttackInstance.ShowBtn();
+        }
     }
 
     private void Dialog_DialogFinish(object sender, EventArgs e)
@@ -156,8 +177,25 @@ public class Level2Script : MonoBehaviour
             DNSThreatInstructions1.AllowSpace = true;
         else if (currentFlowIndex == 4)
             DNSThreatInstructions2.AllowSpace = true;
-        else if (currentFlowIndex == 6)
-            CharacterScript.canControl = true;
+        else if (currentFlowIndex == 6) // game start
+        {
+            // set cooldown
+            Attack1.MinCooldown = 35;
+            Attack1.TimeToReachServerInSecs = 50;
+            CyberAttack.Attack = Attack1;
+
+            CyberAttackInstance = Instantiate(CyberAttack, CyberAttackParentCanvas);
+            Destroy(CyberAttackInstance.transform.GetChild(0).Find("Hackerdood").gameObject);
+            Destroy(CyberAttackInstance.transform.GetChild(0).Find("ToolsPanel").Find("Padlock").gameObject);
+            CyberAttackInstance.MessageReceive += CyberAttackInstance_MessageReceive;
+            CyberAttackInstance.gameObject.SetActive(true);
+            CyberAttackInstance.CloseBtn();
+
+            levelGameHandlerScript.fullLevelTimeInSecs = 180;
+
+            levelGameHandlerScript.gameObject.SetActive(true);
+            levelGameHandlerScript.StartGame();
+        }
     }
 
     IEnumerator WaitForSecs(int secs, Action runAfter)
