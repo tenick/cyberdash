@@ -40,11 +40,11 @@ public class MITMAScript : AttackBase
 
     void Start()
     {
-        MessageText.text = wordList.ElementAt(rand.Next(0, wordList.Count));
+        MessageText.text = wordList.ElementAt(UnityEngine.Random.Range(0, wordList.Count));
 
-        cyberAttackScript = GameObject.Find("CyberAttackGame").GetComponent<CyberAttackScript>();
+        cyberAttackScript = gameObject.transform.parent.parent.parent.GetComponent<CyberAttackScript>();
         started = true;
-        ServerPosition = GameObject.Find("ServerPosition").GetComponent<RectTransform>().anchoredPosition;
+        ServerPosition = gameObject.transform.parent.parent.Find("ServerPosition").GetComponent<RectTransform>().anchoredPosition;
         startTime = Time.time;
         endTime = startTime + TimeToReachServerInSecs;
         dnsHijackRectTransform = transform.GetComponent<RectTransform>();
@@ -79,7 +79,7 @@ public class MITMAScript : AttackBase
     {
         if (started)
         {
-            if (!isVirused && Time.time > startTime + TimeToReachServerInSecs / 2 && (!isEncrypted || !entered || MessageText.text.Trim() != lastEnteredText.Trim()))
+            if (!isVirused && Time.time > startTime + TimeToReachServerInSecs * .75 && (!isEncrypted || !entered || MessageText.text.Trim() != lastEnteredText.Trim()))
             {
                 isVirused = true;
                 Virus.SetActive(true);

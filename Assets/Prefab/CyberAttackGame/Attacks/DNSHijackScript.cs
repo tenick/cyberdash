@@ -28,7 +28,7 @@ public class DNSHijackScript : AttackBase
 
     private void Start()
     {
-        DomainNameText.text = wrongToCorrect.ElementAt(rand.Next(0, 4)).Key;
+        DomainNameText.text = wrongToCorrect.ElementAt(UnityEngine.Random.Range(0, wrongToCorrect.Count)).Key;
 
         cyberAttackScript = gameObject.transform.parent.parent.parent.GetComponent<CyberAttackScript>();
         started = true;

@@ -10,10 +10,12 @@ public class AttackBase : MonoBehaviour
 {
     public int MinCooldown = 35;
     public float CDAddVariance = .33f; // [0,1] : random percentage of MinCooldown to be added
-    protected System.Random rand = new System.Random();
     public virtual float RandomCD
     {
-        get { return MinCooldown * (float)(1 + CDAddVariance * rand.NextDouble()); }
+        get
+        {
+            return MinCooldown * (float)(1 + CDAddVariance * UnityEngine.Random.Range(0f, 1f)) * (1 + UnityEngine.Random.Range(0f, 1f) / UnityEngine.Random.Range(1, 100));
+        }
     }
 
     public int TimeToReachServerInSecs = 60;

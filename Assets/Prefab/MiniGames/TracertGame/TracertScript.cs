@@ -51,9 +51,9 @@ public class TracertScript : MiniGameBase
         Debug.Log(text);
         string pingInput = PingInput.text.Trim();
         TerminalTexts.text += ">>> ping router " + pingInput + '\n';
-        if (brokenRouter == pingInput) // correct
+        isCorrect = brokenRouter == pingInput;
+        if (isCorrect) // correct
         {
-            isCorrect = true;
             PingInput.enabled = false;
             GuideText.text = "Correct!";
             TerminalTexts.text += "    " + "Pinging " + pingInput + " with 8 bytes of data:\n    Request timed out.\n\n    Ping Statistics for " + pingInput + ": \n        Packets: Sent = 1, Received = 0, Lost = 1 (100% loss)";
@@ -61,6 +61,7 @@ public class TracertScript : MiniGameBase
         else
             TerminalTexts.text += "    " + "Pinging " + pingInput + " with 8 bytes of data:\n    Reply from " + pingInput + ": bytes=8 time=42ms TTL=109\n\n    Ping Statistics for " + pingInput + ": \n        Packets: Sent = 1, Received = 1, Lost = 0 (0% loss)";
         PingInput.text = "";
+        OnCheck();
     }
 
     public void SendPacket()

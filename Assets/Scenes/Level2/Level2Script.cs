@@ -180,8 +180,8 @@ public class Level2Script : MonoBehaviour
         else if (currentFlowIndex == 6) // game start
         {
             // set cooldown
-            Attack1.MinCooldown = 35;
-            Attack1.TimeToReachServerInSecs = 50;
+            Attack1.MinCooldown = 80;
+            Attack1.TimeToReachServerInSecs = 70;
             CyberAttack.Attack = Attack1;
 
             CyberAttackInstance = Instantiate(CyberAttack, CyberAttackParentCanvas);
@@ -192,7 +192,6 @@ public class Level2Script : MonoBehaviour
             CyberAttackInstance.CloseBtn();
 
             levelGameHandlerScript.fullLevelTimeInSecs = 180;
-
             levelGameHandlerScript.gameObject.SetActive(true);
             levelGameHandlerScript.StartGame();
         }

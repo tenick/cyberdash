@@ -38,9 +38,12 @@ public class CyberAttackScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        lastAttack1 = Time.time + Attack.RandomCD / 4;
-        lastAttack2 = Time.time + Attack.RandomCD / 4;
-        lastAttack3 = Time.time + Attack.RandomCD / 4;
+        lastAttack1 = Time.time + Attack.RandomCD / UnityEngine.Random.Range(1, 2);
+        lastAttack2 = Time.time + Attack.RandomCD / UnityEngine.Random.Range(3, 4);
+        lastAttack3 = Time.time + Attack.RandomCD / UnityEngine.Random.Range(5, 6);
+        Debug.Log(lastAttack1);
+        Debug.Log(lastAttack2);
+        Debug.Log(lastAttack3);
         currToolState = ToolState.Default;
     }
 

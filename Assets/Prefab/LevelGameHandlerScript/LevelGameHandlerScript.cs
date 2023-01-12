@@ -131,7 +131,6 @@ namespace Assets.Prefab.LevelGameHandlerScript
             {
                 LevelCompleteAnimator.SetTrigger("play");
                 StartCoroutine(WaitForSecs(1, () => {
-                    transitionScript.TransitionToScene = 7;
                     transitionScript.PlayFadeInOnChangeScene = true;
                     transitionScript.DoTransition();
                 }));

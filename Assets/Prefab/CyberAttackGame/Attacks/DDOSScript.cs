@@ -40,13 +40,13 @@ public class DDOSScript : AttackBase
     // Start is called before the first frame update
     void Start()
     {
-        MessageText1.text = wordList.ElementAt(rand.Next(0, wordList.Count));
-        MessageText2.text = wordList.ElementAt(rand.Next(0, wordList.Count));
-        MessageText3.text = wordList.ElementAt(rand.Next(0, wordList.Count));
+        MessageText1.text = wordList.ElementAt(UnityEngine.Random.Range(0, wordList.Count));
+        MessageText2.text = wordList.ElementAt(UnityEngine.Random.Range(0, wordList.Count));
+        MessageText3.text = wordList.ElementAt(UnityEngine.Random.Range(0, wordList.Count));
 
-        cyberAttackScript = GameObject.Find("CyberAttackGame").GetComponent<CyberAttackScript>();
+        cyberAttackScript = gameObject.transform.parent.parent.parent.GetComponent<CyberAttackScript>();
         started = true;
-        ServerPosition = GameObject.Find("ServerPosition").GetComponent<RectTransform>().anchoredPosition;
+        ServerPosition = gameObject.transform.parent.parent.Find("ServerPosition").GetComponent<RectTransform>().anchoredPosition;
         startTime = Time.time;
         endTime = startTime + TimeToReachServerInSecs;
         dnsHijackRectTransform = transform.GetComponent<RectTransform>();
