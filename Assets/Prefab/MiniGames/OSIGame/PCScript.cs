@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using System.Linq;
 using TMPro;
+using UnityEngine.UI;
 
 public static class ListExtension
 {
@@ -26,25 +27,23 @@ public static class ListExtension
 public class PCScript : MiniGameBase
 {
     public static int MinCooldown = 30;
-    public static float CDAddVariance = .5f;
-    static System.Random rand = new System.Random();
-
-    public override float RandomCD
+    public override float MinigameDuration
     {
-        get { return MinCooldown * (float)(1 + CDAddVariance * rand.NextDouble()); }
+        get { return MinCooldown; }
     }
 
     public GameObject DefaultSlots;
     public GameObject OSISlots;
     public GameObject OSILayers;
 
-
     public int GivenNoOfLayers;
 
     public TextMeshProUGUI CheckResultText;
 
-    void Start()
+    public override void Start()
     {
+        base.Start();
+
         // randomize osi layers in default slot
         List<int> osiLayers = Enumerable.Range(0, 7).ToList();
         osiLayers.Shuffle();
@@ -73,15 +72,6 @@ public class PCScript : MiniGameBase
         }
     }
 
-    void Update()
-    {
-
-    }
-    public void CloseBtn()
-    {
-        gameObject.SetActive(false);
-        OnClose();
-    }
     public void CheckBtn()
     {
         bool result = true;
@@ -107,7 +97,10 @@ public class PCScript : MiniGameBase
 
         isCorrect = result;
         if (result)
+        {
             CheckResultText.text = "Correct";
+
+        }
         else
             CheckResultText.text = "Wrong";
 

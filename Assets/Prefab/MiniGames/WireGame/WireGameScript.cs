@@ -8,16 +8,11 @@ using UnityEngine.UI;
 public class WireGameScript : MiniGameBase
 {
     public static int MinCooldown = 30;
-    public static float CDAddVariance = .5f;
-    static System.Random rand = new System.Random();
-
-    public override float RandomCD
+    public override float MinigameDuration
     {
-        get { return MinCooldown * (float)(1 + CDAddVariance * rand.NextDouble()); }
+        get { return MinCooldown; }
     }
 
-    
-    
 
     public GameObject Sources;
     public GameObject Destinations;
@@ -38,8 +33,10 @@ public class WireGameScript : MiniGameBase
     Dictionary<Sprite, Dictionary<int, int>> TemplateBySourceByDest;
 
     // Start is called before the first frame update
-    void Start()
+    public override void Start()
     {
+        base.Start();
+
         TemplateByTemplateDestSprites = new Dictionary<Sprite, List<Sprite>>()
         {
             { Templates[0], TutTemplateDests },
@@ -113,12 +110,6 @@ public class WireGameScript : MiniGameBase
         GameObject selectedSource = Sources.transform.GetChild(sourceNo).gameObject;
         selectedSource.GetComponent<Image>().color = new Color(0, 200f / 255f, 0, 1);
         previousSourceSelected = sourceNo;
-    }
-
-    public void CloseBtn()
-    {
-        gameObject.SetActive(false);
-        OnClose();
     }
 
     public void CheckBtn()

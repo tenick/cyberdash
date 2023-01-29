@@ -9,6 +9,12 @@ using UnityEngine;
 
 public class TracertScript : MiniGameBase
 {
+    public static int MinCooldown = 10;
+    public override float MinigameDuration
+    {
+        get { return MinCooldown; }
+    }
+
     public TextMeshProUGUI TerminalTexts;
     public TMP_InputField PingInput;
     public TMP_InputField SourceInput;
@@ -31,19 +37,14 @@ public class TracertScript : MiniGameBase
     string brokenRouter;
 
     // Start is called before the first frame update
-    void Start()
+    public override void Start()
     {
-        
+        base.Start();
+
         PingInput.onSubmit.AddListener(SendPing);
 
         List<string> routers = nodes.Where(r => r.Length == 1).ToList();
         brokenRouter = routers[UnityEngine.Random.Range(0, routers.Count)];
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     public void SendPing(string text)
@@ -113,11 +114,5 @@ public class TracertScript : MiniGameBase
 
         usesLeft--;
         UsesLeftText.text = usesLeft + "";
-    }
-
-    public void CloseBtn()
-    {
-        gameObject.SetActive(false);
-        OnClose();
     }
 }

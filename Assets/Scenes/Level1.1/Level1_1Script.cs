@@ -13,7 +13,7 @@ public class Level1_1Script : MonoBehaviour
     public characterAnimScript CharacterScript;
 
     public List<Action> SceneFlow;
-    public int currentFlowIndex;
+    public int currentFlowIndex = 1;
 
     public GameObject AmeliaDialog1;
     public GameObject AmeliaDialog2;

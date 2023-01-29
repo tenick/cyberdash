@@ -12,7 +12,6 @@ namespace Assets.Prefab.LevelGameHandlerScript
     public class LevelGameHandlerScript : MonoBehaviour
     {
         // Game needs these stuff
-        public Animator ClockAnimator;
         public GameObject ExclamationPoint;
         public GameObject ExclamationPointsObj;
         public sceneTransitionScript transitionScript;
@@ -38,19 +37,12 @@ namespace Assets.Prefab.LevelGameHandlerScript
 
         // states
         [HideInInspector]
-        public int currHour = 0;
-        [HideInInspector]
         public bool isGameStarted = false;
         public float incrementAmount => fullLevelTimeInSecs / shiftHours;
 
-        public static int MinCooldown = 10;
-        public static float CDAddVariance = .5f;
-        static System.Random rand = new System.Random();
-
-        public float MiniGameSpawnRandomCD
-        {
-            get { return MinCooldown * (float)(1 + CDAddVariance * rand.NextDouble()); }
-        }
+        public int MinigameSpawnCooldown = 30;
+        public int MinigamesClearAmountToWin = 4;
+        public int CurrentMinigameClearAmount = 0;
 
         // game states
         float miniGameCD;
@@ -60,18 +52,8 @@ namespace Assets.Prefab.LevelGameHandlerScript
 
         int currentMiniGameCount = 0;
 
-        float gameTime;
         private void Update()
         {
-            if (isGameStarted && Time.time > gameTime)
-            {
-                Debug.Log("why the fuck is it ticking even though it hasn't fucking started yet??");
-                ClockAnimator.SetTrigger("incr");
-                gameTime = Time.time + incrementAmount;
-                currHour++;
-                CheckIfGameOver();
-            }
-
             if (isGameStarted && Time.time > miniGameCD)
             {
                 if (currentMiniGameCount < employeeMinigames.Count)
@@ -90,13 +72,33 @@ namespace Assets.Prefab.LevelGameHandlerScript
 
                     // spawn minigame
                     employeeMinigames[employeeIndex] = Instantiate(MiniGames[miniGameIndex], MiniGamesObj.transform);
-                    employeeMinigames[employeeIndex].gameObject.SetActive(false);
+                    employeeMinigames[employeeIndex].CloseBtn();
                     employeeMinigames[employeeIndex].Close += MiniGame_OnClose;
                     employeeMinigames[employeeIndex].Check += MiniGame_Check;
+                    employeeMinigames[employeeIndex].TimeTicked += LevelGameHandlerScript_TimeTicked;
                     employeeHasMinigame[employeeIndex] = true;
                     currentMiniGameCount++;
+
+                    AddHealth(-1);
                 }
-                miniGameCD = Time.time + MiniGameSpawnRandomCD;
+                miniGameCD = Time.time + MinigameSpawnCooldown;
+            }
+        }
+
+        private void LevelGameHandlerScript_TimeTicked(object sender, EventArgs e)
+        {
+            for (int i = 0; i < employeeMinigames.Count; i++)
+            {
+                if (object.ReferenceEquals(employeeMinigames[i], sender))
+                {
+                    Debug.Log("ticked!");
+                    MiniGameBase minigame = employeeMinigames[i];
+                    GameObject exclam = ExclamationPoints[i];
+                    float interpolVal = Math.Abs(Time.time - minigame.endTime) / minigame.MinigameDuration;
+                    Debug.Log(interpolVal);
+                    exclam.GetComponent<Image>().color = new Color(1, interpolVal, interpolVal);
+                    break;
+                }
             }
         }
 
@@ -105,7 +107,11 @@ namespace Assets.Prefab.LevelGameHandlerScript
             // if wrong, must decrease health
             MiniGameBase miniGame = (MiniGameBase)sender;
             if (miniGame.isCorrect)
+            {
                 AddHealth(1);
+                CurrentMinigameClearAmount++;
+                Debug.Log("current clears: " + CurrentMinigameClearAmount);
+            }
             else AddHealth(-1);
         }
 
@@ -121,15 +127,18 @@ namespace Assets.Prefab.LevelGameHandlerScript
         {
             if (currHealth == 0) // game over
             {
+                isGameStarted = false;
                 StartCoroutine(WaitForSecs(1, () => {
                     transitionScript.TransitionToScene = 6;
                     transitionScript.PlayFadeInOnChangeScene = true;
                     transitionScript.DoTransition();
                 }));
             }
-            else if (currHour == 6) // level complete
+            else if (CurrentMinigameClearAmount >= MinigamesClearAmountToWin) // level complete
             {
+                isGameStarted = false;
                 LevelCompleteAnimator.SetTrigger("play");
+                Debug.Log("should play level complete animation");
                 StartCoroutine(WaitForSecs(1, () => {
                     transitionScript.PlayFadeInOnChangeScene = true;
                     transitionScript.DoTransition();
@@ -141,25 +150,25 @@ namespace Assets.Prefab.LevelGameHandlerScript
         {
             // if correct, must delete
             MiniGameBase miniGame = (MiniGameBase)sender;
-            if (miniGame.isCorrect)
+            if (miniGame.isCorrect || miniGame.TimeExceededFlag)
             {
                 for (int i = 0; i < employeeMinigames.Count; i++)
                 {
                     if (object.ReferenceEquals(employeeMinigames[i], sender))
                     {
-                        Debug.Log("founddddd this SHITTTT");
                         Destroy(employeeMinigames[i]);
                         Destroy(ExclamationPoints[i]);
                         employeeHasMinigame[i] = false;
                         currentMiniGameCount--;
-                        return;
+                        break;
                     }
                 }
-                Debug.Log("not found mannnnn :(((");
-            }
-            else
-            {
-                Debug.Log("minus healthhhh!!");
+
+                if (!miniGame.isCorrect && miniGame.TimeExceededFlag)
+                    AddHealth(-1);
+
+                if (isGameStarted && CurrentMinigameClearAmount >= MinigamesClearAmountToWin)
+                    CheckIfGameOver();
             }
         }
 
@@ -168,12 +177,10 @@ namespace Assets.Prefab.LevelGameHandlerScript
             CharacterScript.canControl = true;
             CharacterScript.InteractStart += CharacterScript_InteractStart;
             isGameStarted = true;
-            miniGameCD = Time.time + MiniGameSpawnRandomCD;
-            gameTime = Time.time + incrementAmount;
+            miniGameCD = Time.time + MinigameSpawnCooldown;
             employeeHasMinigame = Enumerable.Repeat(false, Employees.transform.childCount).ToList();
             employeeMinigames = Enumerable.Repeat<MiniGameBase>(null, Employees.transform.childCount).ToList();
             ExclamationPoints = Enumerable.Repeat<GameObject>(null, Employees.transform.childCount).ToList();
-            ClockAnimator.SetTrigger("incr");
         }
 
         private void CharacterScript_InteractStart(object sender, InteractArgs e)
@@ -194,7 +201,7 @@ namespace Assets.Prefab.LevelGameHandlerScript
 
             // check if it has minigame
             if (found && employeeHasMinigame[employeeIndex])
-                employeeMinigames[employeeIndex].gameObject.SetActive(true);
+                employeeMinigames[employeeIndex].ShowBtn();
         }
 
         IEnumerator WaitForSecs(int secs, Action runAfter)
