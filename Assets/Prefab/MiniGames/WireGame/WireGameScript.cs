@@ -78,7 +78,6 @@ public class WireGameScript : MiniGameBase
         Reset();
     }
 
-    public bool isTutorial = false;
     public int routerWSignalIndex = default;
     public void Reset()
     {

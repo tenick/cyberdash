@@ -36,6 +36,7 @@ public class Level4Script : MonoBehaviour
 
     void Start()
     {
+        notesUIScript.end = 16;
         // fadeout the level 1 tutorial panel
         StartCoroutine(WaitForSecs(2, () =>
         {

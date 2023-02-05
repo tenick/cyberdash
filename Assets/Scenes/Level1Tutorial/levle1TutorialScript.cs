@@ -29,9 +29,9 @@ public class levle1TutorialScript : MonoBehaviour
     public dialogHandlerScript AmeliaDialog7;
     public dialogHandlerScript AmeliaDialog8;
 
-    public GameObject OSIGameObj;
-    public GameObject WireGameObj;
-    public GameObject TracertGame;
+    public PCScript OSIGameObj;
+    public WireGameScript WireGameObj;
+    public TracertScript TracertGame;
 
     public GameObject OSIInstructions;
     public GameObject WireGameInstructions;
@@ -62,9 +62,17 @@ public class levle1TutorialScript : MonoBehaviour
         currentFlowIndex = 0;
         CharacterScript.InteractStart += CharacterScript_InteractStart;
         CharacterScript.CurrentInteractableObjects = new() { Amelia };
-        OSIGameObj.GetComponent<PCScript>().Close += OSIGame_OnClose;
-        WireGameObj.GetComponent<WireGameScript>().Close += WireGame_OnClose;
-        TracertGame.GetComponent<TracertScript>().Close += TracertGame_Close;
+        OSIGameObj.CloseBtn();
+        WireGameObj.CloseBtn();
+        TracertGame.CloseBtn();
+
+        OSIGameObj.transform.Find("Clock").gameObject.SetActive(false);
+        WireGameObj.transform.Find("Clock").gameObject.SetActive(false);
+        TracertGame.transform.Find("Clock").gameObject.SetActive(false);
+
+        OSIGameObj.Close += OSIGame_OnClose;
+        WireGameObj.Close += WireGame_OnClose;
+        TracertGame.Close += TracertGame_Close;
 
         // define the scene flow
         SceneFlow = new List<Action>();
@@ -135,8 +143,8 @@ public class levle1TutorialScript : MonoBehaviour
         {
             CharacterScript.canControl = true;
             JumpingExclamation.transform.position = new Vector2(-5.74f, 1.36f);
-            JumpingExclamationWireGame = Instantiate(JumpingExclamation, new Vector3(-1.72f, 1.36f), Quaternion.identity);
-            JumpingExclamationTracertGame = Instantiate(JumpingExclamation, new Vector3(-1.72f, -1.93f), Quaternion.identity);
+            JumpingExclamationWireGame = Instantiate(JumpingExclamation, new Vector3(-1.72f, 1.36f), Quaternion.identity, JumpingExclamation.transform.parent);
+            JumpingExclamationTracertGame = Instantiate(JumpingExclamation, new Vector3(-1.72f, -1.93f), Quaternion.identity, JumpingExclamation.transform.parent);
         });
         SceneFlow.Add(() => // 11 show tracert instructions and show next dialog
         {
@@ -154,13 +162,16 @@ public class levle1TutorialScript : MonoBehaviour
     private void TracertGame_Close(object sender, EventArgs e)
     {
         tracertGameIsCorrect = ((TracertScript)sender).isCorrect;
+        Debug.Log("closed tracert, win? " + tracertGameIsCorrect);
         if (tracertGameIsCorrect)
             JumpingExclamationTracertGame.SetActive(false);
+        CheckIfGameOver();
     }
 
     private void WireGame_OnClose(object sender, EventArgs e)
     {
         wireGameIsCorrect = ((WireGameScript)sender).isCorrect;
+        Debug.Log("closed wiregame, win? " + wireGameIsCorrect);
         if (wireGameIsCorrect)
             JumpingExclamationWireGame.SetActive(false);
 
@@ -170,8 +181,10 @@ public class levle1TutorialScript : MonoBehaviour
     private void OSIGame_OnClose(object sender, EventArgs e)
     {
         osiGameIsCorrect = ((PCScript)sender).isCorrect;
+        Debug.Log("closed osi, win? " + osiGameIsCorrect);
         if (osiGameIsCorrect)
             JumpingExclamation.SetActive(false);
+
         CheckIfGameOver();
     }
 
@@ -188,6 +201,7 @@ public class levle1TutorialScript : MonoBehaviour
 
     void CheckIfGameOver()
     {
+        Debug.Log("WIN CONDITIONS: " + osiGameIsCorrect + " | " + wireGameIsCorrect + " | " + tracertGameIsCorrect);
         if (osiGameIsCorrect && wireGameIsCorrect && tracertGameIsCorrect)
         {
             LevelCompleteAnimator.SetTrigger("play");
@@ -200,7 +214,6 @@ public class levle1TutorialScript : MonoBehaviour
     }
 
     bool explainedOSIGame = false;
-    bool onOSIDialog = false;
     bool explainedWireGame = false;
     bool explainedTracertGame = false;
 
@@ -230,7 +243,8 @@ public class levle1TutorialScript : MonoBehaviour
                 AmeliaDialog5.Restart();
                 AmeliaDialog5.DialogFinish += Dialog_DialogFinish;
             }
-            OSIGameObj.SetActive(true);
+            notesUIScript.end = 8;
+            OSIGameObj.ShowBtn();
         }
         if (currentFlowIndex >= 11 && e.CollidedGameObj.name == "Bob")
         {
@@ -240,7 +254,8 @@ public class levle1TutorialScript : MonoBehaviour
                 AmeliaDialog6.Restart();
                 AmeliaDialog6.DialogFinish += Dialog_DialogFinish;
             }
-            WireGameObj.SetActive(true);
+            WireGameObj.ShowBtn();
+            notesUIScript.end = 8;
             //WireGameObj.GetComponent<WireGameScript>().Reset();
         }
         if (currentFlowIndex >= 11 && e.CollidedGameObj.name == "Celine")
@@ -252,7 +267,8 @@ public class levle1TutorialScript : MonoBehaviour
                 AmeliaDialog7.DialogFinish += Dialog_DialogFinish;
             }
             if (explainedTracertGame)
-                TracertGame.SetActive(true);
+                TracertGame.ShowBtn();
+            notesUIScript.end = 8;
         }
     }
 
@@ -306,18 +322,13 @@ public class levle1TutorialScript : MonoBehaviour
     private void TracertInstructions3_Close(object sender, EventArgs e)
     {
         explainedTracertGame = true;
-        TracertGame.SetActive(true);
+        TracertGame.ShowBtn();
     }
 
     void Proceed()
     {
         SceneFlow[currentFlowIndex].Invoke();
         currentFlowIndex++;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
     }
 
     IEnumerator WaitForSecs(int secs, Action runAfter)

@@ -32,6 +32,7 @@ public class Level2Script : MonoBehaviour
     public AttackBase Attack1;
 
     public GameObject JumpingExclamation;
+    public GameObject AlarmUI;
 
 
     public LevelGameHandlerScript levelGameHandlerScript;
@@ -39,6 +40,8 @@ public class Level2Script : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        notesUIScript.end = 9;
+
         // fadeout the level 1 tutorial panel
         StartCoroutine(WaitForSecs(2, () =>
         {
@@ -58,7 +61,7 @@ public class Level2Script : MonoBehaviour
         SceneFlow.Add(() => // 0: show exclam point to server
         {
             CharacterScript.canControl = true;
-            JumpingExclamation.SetActive(true);
+            AlarmUI.SetActive(true);
         });
 
         SceneFlow.Add(() => // 1: dialog 2
@@ -112,7 +115,8 @@ public class Level2Script : MonoBehaviour
 
             CyberAttackInstance.MessageReceive += TutorialCyberAttackInstance_MessageReceive;
             CharacterScript.canControl = false;
-            JumpingExclamation.SetActive(false);
+            AlarmUI.SetActive(false);
+            notesUIScript.end = 12;
         });
 
         SceneFlow.Add(() => // 5: Delete cyberattackgame and show the final dialog

@@ -15,6 +15,8 @@ public class notesUIScript : MonoBehaviour
     public List<Sprite> NotePages;
     public int pageIndex = 0;
 
+    public static int end = 2;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,14 +31,14 @@ public class notesUIScript : MonoBehaviour
 
     public void NextNote()
     {
-        pageIndex = Math.Clamp(pageIndex + 1, 0, NotePages.Count);
+        pageIndex = Math.Clamp(pageIndex + 1, 0, end);
         NotePageImg.sprite = NotePages[pageIndex];
 
     }
 
     public void PrevNote()
     {
-        pageIndex = Math.Clamp(pageIndex - 1, 0, NotePages.Count);
+        pageIndex = Math.Clamp(pageIndex - 1, 0, end);
         NotePageImg.sprite = NotePages[pageIndex];
     }
 

@@ -17,6 +17,7 @@ public class MiniGameBase : MonoBehaviour
     public Selectable CheckUI;
     public Animator ClockAnimator;
     public bool TimeExceededFlag;
+    public bool isTutorial;
 
     public virtual float MinigameDuration { get; }
 
@@ -29,12 +30,14 @@ public class MiniGameBase : MonoBehaviour
     }
     public void Update()
     {
+        if (isTutorial) return;
+
         if (Time.time >= nextClockTick) // clock will tick
         {
             Debug.Log("time ticked");
             ClockAnimator.SetTrigger("incr");
             nextClockTick = Time.time + MinigameDuration / 6;
-            TimeTicked.Invoke(this, EventArgs.Empty);
+            TimeTicked?.Invoke(this, EventArgs.Empty);
         }
 
         if (Time.time >= endTime) // time's up for solving this minigame
@@ -64,7 +67,6 @@ public class MiniGameBase : MonoBehaviour
 
     public virtual void OnCheck()
     {
-
         if (isCorrect) CheckUI.interactable = false;
         Check?.Invoke(this, EventArgs.Empty);
     }

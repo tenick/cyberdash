@@ -26,6 +26,7 @@ public class Level1_1Script : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        notesUIScript.end = 9;
         // fadeout the level 1 tutorial panel
         StartCoroutine(WaitForSecs(2, () =>
         {

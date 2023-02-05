@@ -34,6 +34,7 @@ public class Level3Script : MonoBehaviour
 
     void Start()
     {
+        notesUIScript.end = 12;
         // fadeout the level 1 tutorial panel
         StartCoroutine(WaitForSecs(2, () =>
         {
@@ -69,6 +70,7 @@ public class Level3Script : MonoBehaviour
             Destroy(MITMACyberAttack.transform.GetChild(0).Find("ToolsPanel").Find("MagnifyingGlass").gameObject);
 
             MITMACyberAttack.MessageReceive += TutorialMITMACyberAttack_MessageReceive;
+            notesUIScript.end = 14;
         });
 
         SceneFlow.Add(() => // 2: Delete MITMA cyberattackgame and show the final dialog

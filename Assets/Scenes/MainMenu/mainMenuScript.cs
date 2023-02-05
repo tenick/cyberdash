@@ -15,4 +15,10 @@ public class mainMenuScript : MonoBehaviour
     {
         _sceneTransitionScript.DoTransition();
     }
+
+    public void Quit()
+    {
+        Debug.Log("quit!!");
+        Application.Quit();
+    }
 }
