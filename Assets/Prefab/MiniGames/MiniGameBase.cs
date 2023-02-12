@@ -47,13 +47,13 @@ public class MiniGameBase : MonoBehaviour
         }
     }
 
-    public void ShowBtn()
+    public virtual void ShowBtn()
     {
         Vector3 camPos = Camera.main.transform.position;
         camPos.z = 0;
         transform.position = camPos;
     }
-    public void CloseBtn()
+    public virtual void CloseBtn()
     {
         Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
         transform.position += new Vector3(0, -1000, 0);
@@ -67,7 +67,11 @@ public class MiniGameBase : MonoBehaviour
 
     public virtual void OnCheck()
     {
-        if (isCorrect) CheckUI.interactable = false;
+        if (isCorrect)
+        {
+            if (CheckUI != null)
+                CheckUI.interactable = false;
+        }
         Check?.Invoke(this, EventArgs.Empty);
     }
 }

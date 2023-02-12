@@ -42,7 +42,9 @@ namespace Assets.Prefab.LevelGameHandlerScript
 
         public int MinigameSpawnCooldown = 30;
         public int MinigamesClearAmountToWin = 4;
+        public int ThreatsClearAmountToWin = 4;
         public int CurrentMinigameClearAmount = 0;
+        public int CurrentThreatsClearAmount = 0;
 
         // game states
         float miniGameCD;
@@ -51,15 +53,20 @@ namespace Assets.Prefab.LevelGameHandlerScript
         List<GameObject> ExclamationPoints = new List<GameObject> { null, null, null, null };
 
         int currentMiniGameCount = 0;
+        int minigameSpawned = 0;
 
         private void Update()
         {
             if (isGameStarted && Time.time > miniGameCD)
             {
-                if (currentMiniGameCount < employeeMinigames.Count)
+                if (currentMiniGameCount < employeeMinigames.Count && CurrentMinigameClearAmount >= MinigamesClearAmountToWin)
                 {
                     int miniGameIndex = UnityEngine.Random.Range(0, MiniGames.Count);
                     int employeeIndex = UnityEngine.Random.Range(0, Employees.transform.childCount);
+                    if (minigameSpawned == 0)
+                    {
+                        miniGameIndex = MiniGames.Count - 1; // assume that QuizGame is inserted last in the list of minigames
+                    }
 
                     Debug.Log(employeeIndex + " | " + employeeHasMinigame.Count);
 
@@ -72,12 +79,18 @@ namespace Assets.Prefab.LevelGameHandlerScript
 
                     // spawn minigame
                     employeeMinigames[employeeIndex] = Instantiate(MiniGames[miniGameIndex], MiniGamesObj.transform);
+                    if (employeeMinigames[employeeIndex] is QuizGameScript)
+                    {
+                        (employeeMinigames[employeeIndex] as QuizGameScript).selectedEmployeeIndex = employeeIndex;
+                    }
                     employeeMinigames[employeeIndex].CloseBtn();
                     employeeMinigames[employeeIndex].Close += MiniGame_OnClose;
                     employeeMinigames[employeeIndex].Check += MiniGame_Check;
                     employeeMinigames[employeeIndex].TimeTicked += LevelGameHandlerScript_TimeTicked;
                     employeeHasMinigame[employeeIndex] = true;
                     currentMiniGameCount++;
+
+                    minigameSpawned++;
 
                     AddHealth(-1);
                 }
@@ -138,7 +151,6 @@ namespace Assets.Prefab.LevelGameHandlerScript
             {
                 isGameStarted = false;
                 LevelCompleteAnimator.SetTrigger("play");
-                Debug.Log("should play level complete animation");
                 StartCoroutine(WaitForSecs(1, () => {
                     transitionScript.PlayFadeInOnChangeScene = true;
                     transitionScript.DoTransition();
