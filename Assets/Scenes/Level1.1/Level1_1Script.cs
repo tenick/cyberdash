@@ -26,7 +26,11 @@ public class Level1_1Script : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log("umabot ba dito?");
+        levelGameHandlerScript.ClearTasksText.text = $"Clear {levelGameHandlerScript.MinigamesClearAmountToWin - levelGameHandlerScript.CurrentMinigameClearAmount} Tasks";
+        Destroy(levelGameHandlerScript.PreventThreatsText.gameObject);
         notesUIScript.end = 9;
+
         // fadeout the level 1 tutorial panel
         StartCoroutine(WaitForSecs(2, () =>
         {
@@ -69,6 +73,7 @@ public class Level1_1Script : MonoBehaviour
         SceneFlow.Add(() => // 2: game start
         {
             levelGameHandlerScript.fullLevelTimeInSecs = 90;
+            Debug.Log("umabot din ba dito?");
             levelGameHandlerScript.StartGame();
         });
     }

@@ -36,7 +36,12 @@ public class Level4Script : MonoBehaviour
 
     void Start()
     {
+        // setup
+        levelGameHandlerScript.ClearTasksText.text = $"Clear {levelGameHandlerScript.MinigamesClearAmountToWin - levelGameHandlerScript.CurrentMinigameClearAmount} Tasks";
+        levelGameHandlerScript.PreventThreatsText.text = $"Prevent {levelGameHandlerScript.ThreatsClearAmountToWin - levelGameHandlerScript.CurrentThreatsClearAmount} Threats";
         notesUIScript.end = 16;
+        TracertScript.MinCooldown = 40;
+
         // fadeout the level 1 tutorial panel
         StartCoroutine(WaitForSecs(2, () =>
         {
@@ -118,23 +123,17 @@ public class Level4Script : MonoBehaviour
 
     private void MITMACyberAttack_MessageReceive(object sender, CyberAttackMessageReceiveArgs e)
     {
-        if (e.IsMaliciousMessage)
-            levelGameHandlerScript.AddHealth(-1);
-        else levelGameHandlerScript.AddHealth(1);
+        levelGameHandlerScript.ReceiveMessage(e.IsMaliciousMessage);
     }
 
     private void DNSHijackCyberAttack_MessageReceive(object sender, CyberAttackMessageReceiveArgs e)
     {
-        if (e.IsMaliciousMessage)
-            levelGameHandlerScript.AddHealth(-1);
-        else levelGameHandlerScript.AddHealth(1);
+        levelGameHandlerScript.ReceiveMessage(e.IsMaliciousMessage);
     }
 
     private void DDOSCyberAttack_MessageReceive(object sender, CyberAttackMessageReceiveArgs e)
     {
-        if (e.IsMaliciousMessage)
-            levelGameHandlerScript.AddHealth(-1);
-        else levelGameHandlerScript.AddHealth(1);
+        levelGameHandlerScript.ReceiveMessage(e.IsMaliciousMessage);
     }
 
     private void DDOSInstructions_Close(object sender, EventArgs e)

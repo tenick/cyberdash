@@ -9,7 +9,7 @@ using UnityEngine;
 
 public class TracertScript : MiniGameBase
 {
-    public static int MinCooldown = 10;
+    public static int MinCooldown = 30;
     public override float MinigameDuration
     {
         get { return MinCooldown; }

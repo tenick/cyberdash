@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -39,12 +40,14 @@ namespace Assets.Prefab.LevelGameHandlerScript
         [HideInInspector]
         public bool isGameStarted = false;
         public float incrementAmount => fullLevelTimeInSecs / shiftHours;
+        public TextMeshProUGUI ClearTasksText;
+        public TextMeshProUGUI PreventThreatsText;
 
         public int MinigameSpawnCooldown = 30;
         public int MinigamesClearAmountToWin = 4;
         public int ThreatsClearAmountToWin = 4;
-        public int CurrentMinigameClearAmount = 0;
-        public int CurrentThreatsClearAmount = 0;
+        public int CurrentMinigameClearAmount = 0; // how many minigames the player has cleared
+        public int CurrentThreatsClearAmount = 0; // how many threats the player has cleared
 
         // game states
         float miniGameCD;
@@ -57,9 +60,13 @@ namespace Assets.Prefab.LevelGameHandlerScript
 
         private void Update()
         {
+            //Debug.Log("Current time: " + Time.time + " cooldown time: " + miniGameCD);
+
             if (isGameStarted && Time.time > miniGameCD)
             {
-                if (currentMiniGameCount < employeeMinigames.Count && CurrentMinigameClearAmount >= MinigamesClearAmountToWin)
+                //Debug.Log("Current mini game count: " + currentMiniGameCount + " employeeMinigames.Count: " + employeeMinigames.Count + " CurrentMinigameClearAmount: " + CurrentMinigameClearAmount + " MinigamesClearAmountToWin: " + MinigamesClearAmountToWin);
+
+                if (currentMiniGameCount < employeeMinigames.Count && (currentMiniGameCount + CurrentMinigameClearAmount) < MinigamesClearAmountToWin)
                 {
                     int miniGameIndex = UnityEngine.Random.Range(0, MiniGames.Count);
                     int employeeIndex = UnityEngine.Random.Range(0, Employees.transform.childCount);
@@ -123,10 +130,26 @@ namespace Assets.Prefab.LevelGameHandlerScript
             {
                 AddHealth(1);
                 CurrentMinigameClearAmount++;
+                ClearTasksText.text = $"Clear {MinigamesClearAmountToWin - CurrentMinigameClearAmount} Tasks";
                 Debug.Log("current clears: " + CurrentMinigameClearAmount);
             }
             else AddHealth(-1);
         }
+
+        public void ReceiveMessage(bool isMaliciousMessage)
+        {
+            if (isMaliciousMessage)
+                AddHealth(-1);
+            else
+            {
+                AddHealth(1);
+                CurrentThreatsClearAmount++;
+                if (CurrentThreatsClearAmount > ThreatsClearAmountToWin) CurrentThreatsClearAmount = ThreatsClearAmountToWin;
+                PreventThreatsText.text = $"Prevent {ThreatsClearAmountToWin - CurrentThreatsClearAmount} Threats";
+                CheckIfGameOver();
+            }
+        }
+
 
         public void AddHealth(int healthToAdd)
         {
@@ -147,7 +170,7 @@ namespace Assets.Prefab.LevelGameHandlerScript
                     transitionScript.DoTransition();
                 }));
             }
-            else if (CurrentMinigameClearAmount >= MinigamesClearAmountToWin) // level complete
+            else if (CurrentMinigameClearAmount >= MinigamesClearAmountToWin && CurrentThreatsClearAmount >= ThreatsClearAmountToWin) // level complete
             {
                 isGameStarted = false;
                 LevelCompleteAnimator.SetTrigger("play");
@@ -186,6 +209,7 @@ namespace Assets.Prefab.LevelGameHandlerScript
 
         public void StartGame()
         {
+            Debug.Log("dito naman ang tunay na start");
             CharacterScript.canControl = true;
             CharacterScript.InteractStart += CharacterScript_InteractStart;
             isGameStarted = true;

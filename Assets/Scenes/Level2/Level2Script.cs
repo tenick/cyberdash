@@ -40,6 +40,8 @@ public class Level2Script : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        levelGameHandlerScript.ClearTasksText.text = $"Clear {levelGameHandlerScript.MinigamesClearAmountToWin - levelGameHandlerScript.CurrentMinigameClearAmount} Tasks";
+        levelGameHandlerScript.PreventThreatsText.text = $"Prevent {levelGameHandlerScript.ThreatsClearAmountToWin - levelGameHandlerScript.CurrentThreatsClearAmount} Threats";
         notesUIScript.end = 9;
 
         // fadeout the level 1 tutorial panel
@@ -142,9 +144,7 @@ public class Level2Script : MonoBehaviour
 
     private void CyberAttackInstance_MessageReceive(object sender, CyberAttackMessageReceiveArgs e)
     {
-        if (e.IsMaliciousMessage)
-            levelGameHandlerScript.AddHealth(-1);
-        else levelGameHandlerScript.AddHealth(1);
+        levelGameHandlerScript.ReceiveMessage(e.IsMaliciousMessage);
     }
 
     void Proceed()

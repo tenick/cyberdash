@@ -34,7 +34,10 @@ public class Level3Script : MonoBehaviour
 
     void Start()
     {
+        levelGameHandlerScript.ClearTasksText.text = $"Clear {levelGameHandlerScript.MinigamesClearAmountToWin - levelGameHandlerScript.CurrentMinigameClearAmount} Tasks";
+        levelGameHandlerScript.PreventThreatsText.text = $"Prevent {levelGameHandlerScript.ThreatsClearAmountToWin - levelGameHandlerScript.CurrentThreatsClearAmount} Threats";
         notesUIScript.end = 12;
+
         // fadeout the level 1 tutorial panel
         StartCoroutine(WaitForSecs(2, () =>
         {
@@ -117,16 +120,12 @@ public class Level3Script : MonoBehaviour
 
     private void MITMACyberAttack_MessageReceive(object sender, CyberAttackMessageReceiveArgs e)
     {
-        if (e.IsMaliciousMessage)
-            levelGameHandlerScript.AddHealth(-1);
-        else levelGameHandlerScript.AddHealth(1);
+        levelGameHandlerScript.ReceiveMessage(e.IsMaliciousMessage);
     }
 
     private void DNSHijackCyberAttack_MessageReceive(object sender, CyberAttackMessageReceiveArgs e)
     {
-        if (e.IsMaliciousMessage)
-            levelGameHandlerScript.AddHealth(-1);
-        else levelGameHandlerScript.AddHealth(1);
+        levelGameHandlerScript.ReceiveMessage(e.IsMaliciousMessage);
     }
 
     private void TutorialMITMACyberAttack_MessageReceive(object sender, CyberAttackMessageReceiveArgs e)
