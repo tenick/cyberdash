@@ -5,12 +5,16 @@ using UnityEngine;
 public class mainMenuScript : MonoBehaviour
 {
     sceneTransitionScript _sceneTransitionScript;
+    public GameObject ContinuePanel;
     void Start()
     {
         _sceneTransitionScript = GameObject.Find("SceneTransitionHandler").GetComponent<sceneTransitionScript>();
     }
 
-    // Start is called before the first frame update
+    public void Continue()
+    {
+        ContinuePanel.SetActive(true);
+    }
     public void NewGame()
     {
         _sceneTransitionScript.DoTransition();
