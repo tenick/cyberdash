@@ -43,6 +43,7 @@ public class Level2Script : MonoBehaviour
         levelGameHandlerScript.ClearTasksText.text = $"Clear {levelGameHandlerScript.MinigamesClearAmountToWin - levelGameHandlerScript.CurrentMinigameClearAmount} Tasks";
         levelGameHandlerScript.PreventThreatsText.text = $"Prevent {levelGameHandlerScript.ThreatsClearAmountToWin - levelGameHandlerScript.CurrentThreatsClearAmount} Threats";
         notesUIScript.end = 9;
+        PlayerPrefs.SetInt("level2", 1);
 
         // fadeout the level 1 tutorial panel
         StartCoroutine(WaitForSecs(2, () =>

@@ -5,7 +5,7 @@ using UnityEngine;
 public class mainMenuScript : MonoBehaviour
 {
     sceneTransitionScript _sceneTransitionScript;
-    public GameObject ContinuePanel;
+    public ContinueScript ContinueScript;
     void Start()
     {
         _sceneTransitionScript = GameObject.Find("SceneTransitionHandler").GetComponent<sceneTransitionScript>();
@@ -13,10 +13,11 @@ public class mainMenuScript : MonoBehaviour
 
     public void Continue()
     {
-        ContinuePanel.SetActive(true);
+        ContinueScript.OpenBtn();
     }
     public void NewGame()
     {
+        PlayerPrefs.DeleteAll();
         _sceneTransitionScript.DoTransition();
     }
 

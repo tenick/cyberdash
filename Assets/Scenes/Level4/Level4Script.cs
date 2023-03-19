@@ -41,6 +41,7 @@ public class Level4Script : MonoBehaviour
         levelGameHandlerScript.PreventThreatsText.text = $"Prevent {levelGameHandlerScript.ThreatsClearAmountToWin - levelGameHandlerScript.CurrentThreatsClearAmount} Threats";
         notesUIScript.end = 16;
         TracertScript.MinCooldown = 40;
+        PlayerPrefs.SetInt("level4", 1);
 
         // fadeout the level 1 tutorial panel
         StartCoroutine(WaitForSecs(2, () =>
